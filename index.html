@@ -21,6 +21,7 @@
 	<link href="css/prettyPhoto.css" rel="stylesheet" type="text/css">
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
 	<link href="css/fontawesome-all.css" rel="stylesheet">
+	<link href="css/lunbo.css" rel="stylesheet">
 	<link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext"
 	    rel="stylesheet">
 	<link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
@@ -28,6 +29,20 @@
 
 <body>
 	<!--/banner-->
+	<div class="scroll-box">
+        <ul >
+            <li>1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销</li>
+            <li>1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销</li>
+            <li>1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销</li>
+            <li>1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销</li>
+            <li>1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销</li>
+            <li>1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销</li>
+            <li>1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销1商场大推销</li>
+            <li>8商场大推销</li>
+        </ul>
+    </div>
+
+	
 	<div class="banner" id="home">
 		<!-- header -->
 		<header>
@@ -900,6 +915,26 @@
 	<!--pop-up-box-->
 	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 	<script src="js/jquery.magnific-popup.js"></script>
+	<script src="js/lunbo.js"></script>
+	<script>
+		 function autoScroll(obj){
+ 
+ var n=$(obj).find("li").height();
+ $(obj).find("ul").animate({
+		marginTop:-n
+},500,function(){
+  $(this).css({marginTop:"0px"}).find("li:first").appendTo(this);
+})
+
+$(function(){
+
+setInterval('autoScroll(".scrollBox")',3000)
+
+})
+
+}
+autoScroll()
+	</script>
 	<!--//pop-up-box-->
 	<script>
 		$(document).ready(function () {

@@ -369,6 +369,7 @@ nav.navbar.navbar-expand-lg.navbar-light {
 	-ms-background-size: cover;
 	min-height: 800px;
 	position: relative;
+	margin-top: 40px;
 }
 
 .banner-info h3 {

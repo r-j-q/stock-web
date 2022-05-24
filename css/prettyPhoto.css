@@ -939,49 +939,49 @@ ul.portfolio-area li figure {
         float: left;
         list-style-type: none;
         overflow: hidden;
-        width: 369px;
+        width: 31%;
         margin: 10px;
     }
 }
 @media(max-width:1366px) {
     .portfolio-area li {
-        max-width: 389px;
+        max-width: 31%;
          margin: 10px;
      }
  }
  @media(max-width:1080px) {
     .portfolio-area li {
-        max-width: 305px;
+        max-width: 31%;
         margin: 10px;
     }
  }
  @media(max-width:1024px) {
     .portfolio-area li {
-        max-width: 303px;
+        max-width: 31%;
         margin: 10px;
     }
  }
  @media(max-width:991px) {
     .portfolio-area li {
-        width: 290px;
+        width: 31%;
         margin: 10px;
     }
  }
  @media (max-width: 900px){
     .portfolio-area li {
-        max-width: 264px;
+        max-width: 30%;
         margin: 10px;
     }
 }
 @media (max-width:800px){
     .portfolio-area li {
-        max-width: 230px;
+        max-width: 31%;
         margin: 10px;
     }
 }
 @media (max-width:768px){
     .portfolio-area li {
-        max-width: 230px;
+        max-width: 31%;
         margin: 10px;
     }
 }
@@ -1041,7 +1041,8 @@ ul.portfolio-area li figure {
 }
 @media (max-width:414px){
     .portfolio-area li {
-        max-width: 330px;
+        width: 30%;
         margin: 6px 0;
+        margin-left: 10px;
     }
 }

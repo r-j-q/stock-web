@@ -1,2 +1,0 @@
-# stock-web
-stock-web

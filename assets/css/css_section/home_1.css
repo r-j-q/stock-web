@@ -54,7 +54,7 @@
 
 .home1-hero-animet img:nth-child(1) {
     position: absolute;
-    top: 0;
+    top: -248px;
     right: 0;
 }
 

@@ -112,6 +112,9 @@
         var footerHeight = $(".side-fixed").height();
         $(".side-wrapper").css('margin-bottom', footerHeight + 'px');
 
+
+        
+
       
     });
 

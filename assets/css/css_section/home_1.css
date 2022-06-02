@@ -636,7 +636,9 @@ i.flaticon-document {
     padding: 20px 0 23px;
 }
 
-.pricing-item ul li {}
+.pricing-item ul li {
+    text-align: left;
+}
 
 .pricing-item ul li a {
     font-size: 16px;

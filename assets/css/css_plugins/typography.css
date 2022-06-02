@@ -91,6 +91,12 @@ a:hover {
     transform: perspective(1px) translateZ(0);
     overflow: hidden;
 }
+@media (max-width: 768px){ 
+    .btn-100 {
+    padding:   0px;
+    
+}
+}
 
 .btn-1:before {
     content: "";

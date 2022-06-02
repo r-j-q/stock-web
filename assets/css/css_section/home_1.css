@@ -54,7 +54,7 @@
 
 .home1-hero-animet img:nth-child(1) {
     position: absolute;
-    top: -248px;
+    top: 0;
     right: 0;
 }
 
@@ -561,13 +561,18 @@ i.flaticon-document {
 
 .pricing-item {
     background-color: #986ffc;
-    padding: 80px 68px;
+    padding: 80px 38px;
     border-radius: 5px;
     overflow: hidden;
     position: relative;
     z-index: 1111;
+    text-align: center;
 }
-
+.home1-services-title-h3{
+    text-align: left!important;
+    text-indent: 51px!important;
+    font-size: 26px!important;
+}
 .pricing-item.active {
     -webkit-transform: scale(1.17);
     -ms-transform: scale(1.17);
@@ -752,9 +757,13 @@ i.flaticon-document {
 
 #faq-area {
     background-color: #fff;
-    padding: 168px 0 172px;
+    padding: 0px 0 172px;
 }
-
+.color9{
+    color: #986ffc;
+    font-size: 28px;
+    font-weight: bold;
+}
 .faq-content {}
 
 .faq-content-title h2 {
@@ -854,4 +863,22 @@ button.faq-title .card-icon .fa-plus {
 
 .card-body {
     padding: 30px;
+}
+.btn-101 {
+    cursor: pointer;
+    background-color: #1add97;
+    border: 2px solid #1add97;
+    font-size: 18px;
+    color: #ffffff;
+    font-family: "Open Sans";
+    font-weight: 700; 
+    border-radius: 100px;
+    width: 220px;
+    transition: .8s linear;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    overflow: hidden;
 }

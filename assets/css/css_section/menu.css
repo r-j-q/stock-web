@@ -33,12 +33,18 @@ header {
     position: relative;
     z-index: 123;
     padding: 22px 0;
-    font: 18px verdana;
-    color: #6DDB07;
+    font: 26px verdana;
+    color: #FFF;
     float: left;
-    width: 15%;
+    font-weight: bold;
 }
-
+.payNumber{
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 20px;
+}
 .logo a {
     color: #004091;
 }

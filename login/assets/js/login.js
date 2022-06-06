@@ -2,11 +2,23 @@
   "use strict";
   var baseUrl = "https://api.stock-plouto.com";
   $(document).ready(function () {
+    var userInfo = localStorage.getItem("userInfo");
+    if (userInfo == null) {
+      // $(".loginIn").show()
+    }
+
+    $(".loginIn").click(function () {
+      // var userInfo = localStorage.getItem("userInfo");
+      console.log("------>", typeof userInfo);
+      if (userInfo == null) {
+        window.location.href = "login.html";
+      }
+    });
+
     $("#ploutoRegister").click(function () {
-      var userInfo = localStorage.getItem("userInfo");
       if (userInfo == null) {
         window.location.href = "register.html";
-      }  
+      }
     });
   });
   $("#registerBtn").click(function () {
@@ -22,7 +34,7 @@
       fnShowAnimate("zoom-in", "Incorrect information");
       return;
     }
-     
+
     $.ajax({
       type: "post",
       url: `${baseUrl}/auth/register`,
@@ -49,7 +61,7 @@
       data: user,
       dataType: "json",
       success: function (res) {
-        console.log("")
+        console.log("");
         var data = JSON.stringify(res.data);
         localStorage.setItem("userInfo", data || null);
         window.location.href = "index.html";

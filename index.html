@@ -12,7 +12,8 @@
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/responsive.css">
-
+<link rel="stylesheet" href="login/alert/css/alert.min.css"> 
+<link rel="stylesheet" href="login/alert/css/alert.ani.min.css">
 </head>
 <body>
 
@@ -41,7 +42,7 @@
 				<li><a href="#pricing-area">Pricing</a></li>
 				<li><a href="#home1-services-area">Features</a></li>
 				<li><a href="#faq-area">FAQ</a></li>
-				<li class="top-btn"><a href="#">download</a></li>
+				<li class="loginIn"  class="top-btn"><a href="javascript:;">Login In</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -60,7 +61,7 @@
 				<div class="col-lg-6">
 					<div class="home1-hero-content">
 						<h1>Stock Plouto makes it easy to invest profitably</p>
-						<a href="#" class="btn-101 btn-100">Get Started Now</a>
+						<a href="#" id="loginIn"   class="btn-101 btn-100 loginIn">Login In</a>
 					</div>
 				</div>
 				<div class="hero1-right">
@@ -536,6 +537,7 @@
 									<li><a href="#overview-area">Overview</a></li>
 									<li><a href="#pricing-area">Pricing</a></li>
 									<li><a href="#home1-services-area">Features</a></li>
+									<li><a  class="loginIn"  href="javascript:;">Features</a></li>
 								</ul>
 							</div>
 						</div>
@@ -569,6 +571,7 @@
 </div>
 
 
+<script src="login/alert/js/alert.min.js"></script>
 
 <script src="assets/js/jquery-3.3.1.min.js"></script>
 <script src="assets/js/popper.min.js"></script>
@@ -576,12 +579,11 @@
 <script src="assets/js/plugins.js"></script>
 <script src="assets/js/menu.js"></script>
 <script src="assets/js/script.js"></script>
-<script>
-	/*
-							========================================
-							Preloader
-							========================================
-							*/
+<script
+src="login/assets/js/login.js?v=1.1.0"
+type="text/javascript"
+></script>
+<script> 
 	$(window).on('load', function() {
 		$('#preloader').delay(350).fadeOut('slow');
 		$('body').delay(350).css({

@@ -39,7 +39,6 @@
       $("#password").val() == "" ||
       $("#rePassword").val() == "" ||
       $("#code").val() == ""
-       
     ) {
       fnShowAnimate("zoom-in", "Incorrect information");
       return;
@@ -48,6 +47,17 @@
       fnShowAnimate("zoom-in", "Incorrect information");
       return;
     }
+
+    var emailRegExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    var ok = emailRegExp.test($("#email").val());
+
+    if (ok) {
+    } else {
+      // 输入的格式不符合要求
+      fnShowAnimate("zoom-in", "Error email");
+      return;
+    }
+
     console.log("注册参数2", registerUser);
     $.ajax({
       type: "post",
@@ -55,10 +65,10 @@
       data: registerUser,
       dataType: "json",
       success: function (res) {
-        if(res.code==0){
+        if (res.code == 0) {
           window.location.href = "login.html";
         }
-        console.log("======>",res)
+        console.log("======>", res);
         // window.location.href = "login.html";
       },
     });
@@ -84,7 +94,7 @@
         console.log("登录成功了", res);
         if (res.code == 1) {
           fnShowAnimate("zoom-in", "Incorrect information");
-        } else { 
+        } else {
           var data = JSON.stringify(res.data);
           localStorage.setItem("userInfo", data || null);
           window.location.href = "index.html";
@@ -156,7 +166,7 @@
       },
     });
   }
-
+  //弹窗 https://www.jq22.com/jquery-info24247
   function showMsg(text, icon, hideAfter) {
     if (heading == undefined) {
       var heading = "Title";
@@ -193,50 +203,46 @@
       },
     });
   }
- 
-  var time = 60;
-  function getCodes(obj){
 
-    var phones = $('#phone').val();
-    console.log("======>",phones)
-    if(phones == ""){
-      obj.attr('disabled', false);
+  var time = 60;
+  function getCodes(obj) {
+    var phones = $("#phone").val();
+    console.log("======>", phones);
+    if (phones == "") {
+      obj.attr("disabled", false);
       obj.html("Get Code");
       fnShowAnimate("zoom-in", "Telephone error");
       return;
     }
     $.ajax({
       type: "get",
-      url: `${baseUrl}/noauth/getcode?phone=${phones}`, 
+      url: `${baseUrl}/noauth/getcode?phone=${phones}`,
       dataType: "json",
       success: function (res) {
         console.log("登录成功了", res);
-        
       },
     });
   }
 
-   
-  $('.btn_yzmbutton').click(function () { 
-      var obj = $(".btn_yzmbutton");
-      getCodes(obj) 
-      countdown(obj);
+  $(".btn_yzmbutton").click(function () {
+    var obj = $(".btn_yzmbutton");
+    getCodes(obj);
+    countdown(obj);
   });
 
-
-function  countdown(obj) {  
-  if (time == 0) { 
-      obj.attr('disabled', false);
+  function countdown(obj) {
+    if (time == 0) {
+      obj.attr("disabled", false);
       obj.html("Get Code");
-      time= 60;
+      time = 60;
       return;
-  } else {
-      obj.attr('disabled', true);
-      obj.html( time+ "s");
-     time--;
+    } else {
+      obj.attr("disabled", true);
+      obj.html(time + "s");
+      time--;
+    }
+    setTimeout(function () {
+      countdown(obj);
+    }, 1000);
   }
-  setTimeout(function () {
-      countdown(obj)
-  }, 1000)
-}
 })(jQuery);

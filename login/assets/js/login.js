@@ -30,13 +30,16 @@
       rePassword: $("#rePassword").val(),
       email: $("#email").val(),
       phone: $("#phone").val(),
+      code: $("#code").val(),
     };
     if (
       $("#username").val() == "" ||
       $("#phone").val() == "" ||
       $("#email").val() == "" ||
       $("#password").val() == "" ||
-      $("#rePassword").val() == ""
+      $("#rePassword").val() == "" ||
+      $("#code").val() == ""
+       
     ) {
       fnShowAnimate("zoom-in", "Incorrect information");
       return;
@@ -190,4 +193,47 @@
       },
     });
   }
+ 
+
+  function getCodes(){
+    var phones = $('#phone').val();
+    console.log("======>",phones)
+    if(phones ==""){
+      fnShowAnimate("zoom-in", "Telephone error");
+      return;
+    }
+    $.ajax({
+      type: "get",
+      url: `${baseUrl}/noauth/getcode?phone=${phones}`, 
+      dataType: "json",
+      success: function (res) {
+        console.log("登录成功了", res);
+        
+      },
+    });
+  }
+
+  var time = 60;
+  $('.btn_yzmbutton').click(function () { 
+      var obj = $(".btn_yzmbutton");
+      getCodes() 
+      countdown(obj);
+  });
+
+
+function  countdown(obj) {  
+  if (time == 0) { 
+      obj.attr('disabled', false);
+      obj.html("Get Code");
+      time= 60;
+      return;
+  } else {
+      obj.attr('disabled', true);
+      obj.html( time+ "s");
+     time--;
+  }
+  setTimeout(function () {
+      countdown(obj)
+  }, 1000)
+}
 })(jQuery);

@@ -23,6 +23,7 @@
 .home1-hero-content h1 {
     color: #ffffff;
     font-weight: 700;
+    font-size: 30px;
 }
 
 .home1-hero-content p {
@@ -54,7 +55,7 @@
 
 .home1-hero-animet img:nth-child(1) {
     position: absolute;
-    top: 0;
+    top: -340px;
     right: 0;
 }
 

@@ -1,5 +1,6 @@
 (function ($) {
   "use strict";
+
   var baseUrl = "https://api.stock-plouto.com";
   $(document).ready(function () {
     var userInfo = localStorage.getItem("userInfo");
@@ -10,7 +11,8 @@
     $(".loginIn").click(function () {
       // var userInfo = localStorage.getItem("userInfo");
       console.log("------>", typeof userInfo);
-      if (userInfo == null) {
+      if (userInfo == null || typeof userInfo == "string") {
+        localStorage.removeItem("userInfo");
         window.location.href = "login.html";
       }
     });
@@ -28,26 +30,42 @@
       rePassword: $("#rePassword").val(),
       email: $("#email").val(),
       phone: $("#phone").val(),
-      age: parseInt($("#age").val()),
+      code: $("#code").val(),
     };
-    if ($("#username").val() == "" || $("#phone").val()) {
+    if (
+      $("#username").val() == "" ||
+      $("#phone").val() == "" ||
+      $("#email").val() == "" ||
+      $("#password").val() == "" ||
+      $("#rePassword").val() == "" ||
+      $("#code").val() == ""
+       
+    ) {
       fnShowAnimate("zoom-in", "Incorrect information");
       return;
     }
-
+    if ($("#password").val() != $("#rePassword").val()) {
+      fnShowAnimate("zoom-in", "Incorrect information");
+      return;
+    }
+    console.log("注册参数2", registerUser);
     $.ajax({
       type: "post",
       url: `${baseUrl}/auth/register`,
       data: registerUser,
       dataType: "json",
       success: function (res) {
-        window.location.href = "index.html";
+        if(res.code==0){
+          window.location.href = "login.html";
+        }
+        console.log("======>",res)
+        // window.location.href = "login.html";
       },
     });
   });
 
   $("#loginBtn").click(function () {
-    if ($("#username").val() == "" || $("#password").val()) {
+    if ($("#username").val() == "" || $("#password").val() == "") {
       fnShowAnimate("zoom-in", "Incorrect information");
       return;
     }
@@ -55,16 +73,22 @@
       username: $("#username").val(),
       password: $("#password").val(),
     };
+    console.log("登录参数", user);
+
     $.ajax({
       type: "post",
       url: `${baseUrl}/auth/login`,
       data: user,
       dataType: "json",
       success: function (res) {
-        console.log("");
-        var data = JSON.stringify(res.data);
-        localStorage.setItem("userInfo", data || null);
-        window.location.href = "index.html";
+        console.log("登录成功了", res);
+        if (res.code == 1) {
+          fnShowAnimate("zoom-in", "Incorrect information");
+        } else { 
+          var data = JSON.stringify(res.data);
+          localStorage.setItem("userInfo", data || null);
+          window.location.href = "index.html";
+        }
       },
     });
   });
@@ -132,4 +156,84 @@
       },
     });
   }
+
+  function showMsg(text, icon, hideAfter) {
+    if (heading == undefined) {
+      var heading = "Title";
+    }
+    $.toast({
+      text: text, //消息提示框的内容。
+      heading: heading, //消息提示框的标题。
+      icon: icon, //消息提示框的图标样式。
+      showHideTransition: "fade", //消息提示框的动画效果。可取值：plain，fade，slide。
+      allowToastClose: true, //是否显示关闭按钮。(true 显示，false 不显示)
+      hideAfter: hideAfter, //设置为false则消息提示框不自动关闭.设置为一个数值则在指定的毫秒之后自动关闭消息提框
+      stack: 1, //消息栈。同时允许的提示框数量
+      position: "top-center", //消息提示框的位置：bottom-left, bottom-right,bottom-center,top-left,top-right,top-center,mid-center。
+      textAlign: "left", //文本对齐：left, right, center。
+      loader: true, //是否显示加载条
+      //bgColor: '#FF1356',//背景颜色。
+      //textColor: '#eee',//文字颜色。
+      loaderBg: "#ffffff", //加载条的背景颜色。
+
+      beforeShow: function () {
+        alert("The toast is about to appear");
+      },
+
+      afterShown: function () {
+        alert("Toast has appeared.");
+      },
+
+      beforeHide: function () {
+        alert("Toast is about to hide.");
+      },
+
+      afterHidden: function () {
+        alert("Toast has been hidden.");
+      },
+    });
+  }
+ 
+
+  function getCodes(){
+    var phones = $('#phone').val();
+    console.log("======>",phones)
+    if(phones ==""){
+      fnShowAnimate("zoom-in", "Telephone error");
+      return;
+    }
+    $.ajax({
+      type: "get",
+      url: `${baseUrl}/noauth/getcode?phone=${phones}`, 
+      dataType: "json",
+      success: function (res) {
+        console.log("登录成功了", res);
+        
+      },
+    });
+  }
+
+  var time = 60;
+  $('.btn_yzmbutton').click(function () { 
+      var obj = $(".btn_yzmbutton");
+      getCodes() 
+      countdown(obj);
+  });
+
+
+function  countdown(obj) {  
+  if (time == 0) { 
+      obj.attr('disabled', false);
+      obj.html("Get Code");
+      time= 60;
+      return;
+  } else {
+      obj.attr('disabled', true);
+      obj.html( time+ "s");
+     time--;
+  }
+  setTimeout(function () {
+      countdown(obj)
+  }, 1000)
+}
 })(jQuery);

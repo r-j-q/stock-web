@@ -194,11 +194,14 @@
     });
   }
  
+  var time = 60;
+  function getCodes(obj){
 
-  function getCodes(){
     var phones = $('#phone').val();
     console.log("======>",phones)
-    if(phones ==""){
+    if(phones == ""){
+      obj.attr('disabled', false);
+      obj.html("Get Code");
       fnShowAnimate("zoom-in", "Telephone error");
       return;
     }
@@ -213,10 +216,10 @@
     });
   }
 
-  var time = 60;
+   
   $('.btn_yzmbutton').click(function () { 
       var obj = $(".btn_yzmbutton");
-      getCodes() 
+      getCodes(obj) 
       countdown(obj);
   });
 

@@ -52,7 +52,7 @@
       data: registerUser,
       dataType: "json",
       success: function (res) {
-        if(res.code===0){
+        if(res.code==0){
           window.location.href = "login.html";
         }
         console.log("======>",res)

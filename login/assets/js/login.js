@@ -52,7 +52,11 @@
       data: registerUser,
       dataType: "json",
       success: function (res) {
-        window.location.href = "login.html";
+        if(res.code===0){
+          window.location.href = "login.html";
+        }
+        console.log("======>",res)
+        // window.location.href = "login.html";
       },
     });
   });

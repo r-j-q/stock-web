@@ -14,9 +14,10 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 <link rel="stylesheet" href="login/alert/css/alert.min.css"> 
 <link rel="stylesheet" href="login/alert/css/alert.ani.min.css">
+<link rel="stylesheet" href="login/assets/css/gun.css">
 </head>
 <body>
-
+ 
 <!-- Preloader -->
 <div id="preloader">
 	<div class="preloader">
@@ -24,11 +25,30 @@
 		<span></span>
 	</div>
 </div>
+ 
 <!-- End Preloader -->
 
 <div class="side-wrapper">
 	<!-- Top Menu -->
 	<header class="top-nav">
+		<div class="swiper_wrap">
+			<ul class="font_inner" style="height: 120px; top: -60px;">
+				<li>
+					<a href="###">1调用两条新闻并设定时间上下切换（切换时间3秒，点击左右的按钮亦可切换）</a>
+				</li>
+				<li>
+					<a href="###">2调用两条新闻并设定时间上下切换（切换时间3秒，点击左右的按钮亦可切换）</a>
+				</li>
+				<li>
+					<a href="###">3调用两条新闻并设定时间上下切换（切换时间3秒，点击左右的按钮亦可切换）</a>
+				</li>
+				<li>
+					<a href="###">4调用两条新闻并设定时间上下切换（切换时间3秒，点击左右的按钮亦可切换）</a>
+				</li>
+			<li>
+					<a href="###">1调用两条新闻并设定时间上下切换（切换时间3秒，点击左右的按钮亦可切换）</a>
+				</li></ul> 
+		</div>
 		<nav id="cssmenu" class="container ">
 			<div class="logo">
 				Stock Plouto
@@ -42,7 +62,7 @@
 				<li><a href="#pricing-area">Pricing</a></li>
 				<li><a href="#home1-services-area">Features</a></li>
 				<li><a href="#faq-area">FAQ</a></li>
-				<li class="loginIn"  class="top-btn"><a href="javascript:;">Login In</a></li>
+				<li class="loginIn"    class="top-btn"><a id="userName" href="javascript:;">Login In</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -580,6 +600,15 @@
 <script src="assets/js/menu.js"></script>
 <script src="assets/js/script.js"></script>
 <script
+    src="login/assets/js/gun.js?v=1.1.0"
+    type="text/javascript"
+  ></script>
+   
+  <script
+src="login/assets/js/jquery.1.3.js?v=1.1.0"
+type="text/javascript"
+></script>
+<script
 src="login/assets/js/login.js?v=1.1.0"
 type="text/javascript"
 ></script>
@@ -589,6 +618,16 @@ type="text/javascript"
 		$('body').delay(350).css({
 			'overflow': 'visible'
 		});
+	var userInfos= JSON.parse(	localStorage.getItem("userInfo"));
+	if(userInfos?.token){
+        $("#userName").text( `Welcome ${userInfos.username}` )
+	    $("#loginIn").hide()
+		// console.log("====加仔2=========",userInfos.username)
+       }else{
+		$("#userName").text("Login In")
+	    $("#loginIn").show()
+	   }
+		// console.log("====加仔=========",typeof userInfos)
 	});
 </script>
 

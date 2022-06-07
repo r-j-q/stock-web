@@ -99,8 +99,7 @@ nav {
 }
 
 #cssmenu>ul>li>a {
-    text-transform: capitalize;
-    margin: 0px 17px;
+    text-transform: capitalize; 
     padding: 30px 0px;
     font-size: 18px;
     text-decoration: none;

@@ -67,6 +67,9 @@
       success: function (res) {
         if (res.code == 0) {
           window.location.href = "login.html";
+        }else{
+          fnShowAnimate("zoom-in", res.msg);
+
         }
         console.log("======>", res);
         // window.location.href = "login.html";
@@ -93,8 +96,10 @@
       success: function (res) {
         console.log("登录成功了", res);
         if (res.code == 1) {
-          fnShowAnimate("zoom-in", "Incorrect information");
+          fnShowAnimate("zoom-in", res.msg);
+
         } else {
+          fnShowAnimate("zoom-in", res.msg);
           var data = JSON.stringify(res.data);
           localStorage.setItem("userInfo", data || null);
           window.location.href = "index.html";

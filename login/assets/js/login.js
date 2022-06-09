@@ -2,7 +2,7 @@
   "use strict";
 
   var baseUrl = "https://api.stock-plouto.com";
-  var areaCode = "001"
+  var areaCode = "001";
   $(document).ready(function () {
     var userInfo = localStorage.getItem("userInfo");
     if (userInfo == null) {
@@ -68,9 +68,8 @@
       success: function (res) {
         if (res.code == 0) {
           window.location.href = "login.html";
-        }else{
+        } else {
           fnShowAnimate("zoom-in", res.msg);
-
         }
         console.log("======>", res);
         // window.location.href = "login.html";
@@ -98,8 +97,7 @@
         console.log("登录成功了", res);
         if (res.code == 1) {
           fnShowAnimate("zoom-in", res.msg);
-
-        } else { 
+        } else {
           var data = JSON.stringify(res.data);
           localStorage.setItem("userInfo", data || null);
           window.location.href = "index.html";
@@ -229,14 +227,12 @@
     });
   }
 
- $("#s1").change(function(){
-  areaCode =  $("#s1  option:selected").text(); 
-  // var ssss = $("#s1 option:selected").text()
-  console.log("互殴去 ",ssss)
- })
+  $("#s1").change(function () {
+    areaCode = $("#s1  option:selected").text();
+    // var ssss = $("#s1 option:selected").text()
+    console.log("互殴去 ", ssss);
+  });
 
-  
-  
   $(".btn_yzmbutton").click(function () {
     var obj = $(".btn_yzmbutton");
     getCodes(obj);
@@ -244,8 +240,7 @@
   });
 
   function countdown(obj) {
-
-   if (time == 0) {
+    if (time == 0) {
       obj.attr("disabled", false);
       obj.html("Get Code");
       time = 60;

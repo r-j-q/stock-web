@@ -71,7 +71,7 @@
         } else {
           fnShowAnimate("zoom-in", res.msg);
         }
-        console.log("======>", res);
+        // console.log("======>", res);
         // window.location.href = "login.html";
       },
     });
@@ -210,7 +210,7 @@
   var time = 60;
   function getCodes(obj) {
     var phones = $("#phone").val();
-    console.log("======>", phones);
+    // console.log("======>", phones);
     if (phones == "") {
       obj.attr("disabled", false);
       obj.html("Get Code");
@@ -219,10 +219,10 @@
     }
     $.ajax({
       type: "get",
-      url: `${baseUrl}/noauth/getcode?phone=${phones}&areaCode=${areaCode}`,
+      url: `${baseUrl}/noauth/getcode?phone=${phones}&areacode=${areaCode}`,
       dataType: "json",
       success: function (res) {
-        console.log("登录成功了", res);
+        // console.log("登录成功了", res);
       },
     });
   }
@@ -230,7 +230,7 @@
   $("#s1").change(function () {
     areaCode = $("#s1  option:selected").text();
     // var ssss = $("#s1 option:selected").text()
-    console.log("互殴去 ", ssss);
+    // console.log("互殴去 ", ssss);
   });
 
   $(".btn_yzmbutton").click(function () {

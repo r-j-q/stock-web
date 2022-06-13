@@ -11,7 +11,7 @@
 
     $(".loginIn").click(function () {
       // var userInfo = localStorage.getItem("userInfo");
-      console.log("------>", typeof userInfo);
+      // console.log("------>", typeof userInfo);
       if (userInfo == null || typeof userInfo == "string") {
         localStorage.removeItem("userInfo");
         window.location.href = "login.html";
@@ -59,7 +59,7 @@
       return;
     }
 
-    console.log("注册参数2", registerUser);
+    // console.log("注册参数2", registerUser);
     $.ajax({
       type: "post",
       url: `${baseUrl}/auth/register`,
@@ -86,7 +86,7 @@
       username: $("#username").val(),
       password: $("#password").val(),
     };
-    console.log("登录参数", user);
+    // console.log("登录参数", user);
 
     $.ajax({
       type: "post",
@@ -94,7 +94,7 @@
       data: user,
       dataType: "json",
       success: function (res) {
-        console.log("登录成功了", res);
+        // console.log("登录成功了", res);
         if (res.code == 1) {
           fnShowAnimate("zoom-in", res.msg);
         } else {
@@ -135,16 +135,13 @@
       var ctx = e.ctx,
         cancel = e.cancel,
         confirm = e.confirm;
-      console.log(e);
       if (e.cancel) {
         tzAlert.close();
         e.ctx.close();
       } else if (e.confirm) {
       }
     },
-    onMounted: function () {
-      //   console.log('默认初始化完成钩子')
-    },
+    onMounted: function () {},
   });
 
   // 动画显示https://www.jq22.com/jquery-info24247
@@ -249,44 +246,43 @@
       countdown(obj);
     }, 1000);
   }
-    // $("#pay0").click(function(){
-    //   console.log("pay0")
-    // })
-    // $("#pay01").click(function(){
-    //   console.log("pay01")
-    // })
-    // $("#pay10").click(function(){
-    //   console.log("pay10")
-    // })
-    // $("#pay11").click(function(){
-    //   console.log("pay11")
-    // })
-    // $("#pay12").click(function(){
-    //   console.log("pay12")
-    // })
+  var goods_id = "";
+  $(document).on("click", "#pay0", function () {
+    goods_id = $("#pay0").data("id");
+    createdOrder(goods_id);
+  });
+  $(document).on("click", "#pay01", function () {
+    goods_id = $("#pay01").data("id");
+    createdOrder(goods_id);
+  });
+  $(document).on("click", "#pay10", function () {
+    goods_id = $("#pay10").data("id");
+    createdOrder(goods_id);
+  });
+  $(document).on("click", "#pay11", function () {
+    goods_id = $("#pay11").data("id");
+    createdOrder(goods_id);
+  });
+  $(document).on("click", "#pay12", function () {
+    goods_id = $("#pay12").data("id");
+    createdOrder(goods_id);
+  });
+  function createdOrder(goods_id) {
+    var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
 
-$(document).on("click","#pay0",function(){
-  console.log("pay0")
+    $.ajax({
+      type: "get",
+      url: `${baseUrl}/order/create?paytype=paypal&goods_id=${goods_id}`,
+      dataType: "json",
+      headers: {
+        Authorization: `Bearer ${tokens.token}`,
+      },
+      success: function (res) {
+        console.log("创建订单", res);
+      },
+    });
+  }
 
-})
-$(document).on("click","#pay01",function(){
-  console.log("pay01")
-
-})
-$(document).on("click","#pay10",function(){
-  console.log("pay10")
-
-})
-$(document).on("click","#pay11",function(){
-  console.log("pay11")
-
-})
-$(document).on("click","#pay12",function(){
-  console.log("pay12")
-
-})
-
-    
   function goodList(id) {
     var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
 
@@ -299,7 +295,6 @@ $(document).on("click","#pay12",function(){
       },
       success: function (res) {
         if (res.code == 0) {
-          console.log("------->", res.data.list);
           if (id == 0) {
             $.each(res.data.list, function (index, data) {
               var typesd = "M";
@@ -313,8 +308,8 @@ $(document).on("click","#pay12",function(){
                 typesd = "Week";
               }
 
-              var op =   `<div class="displaytop-list displaytopK" id="pay0"><div>${data.title}</div><div>$${data.cur_price} /${typesd}</div></div>` 
-              
+              var op = `<div class="displaytop-list displaytopK" data-id="${data.ID}" id="pay0"><span  style="display:none">${data.ID}</span><div>${data.title}</div><div>$${data.cur_price} /${typesd}</div></div>`;
+
               $("#payList").append(op);
             });
           } else if (id == 2) {
@@ -329,8 +324,8 @@ $(document).on("click","#pay12",function(){
               } else if (data.time == 7) {
                 types = "Week";
               }
-              var op20 =   `<div class="displaytop-list displaytopK" id="pay01"><div>${data.title}</div><div>$${data.cur_price} /${types}</div></div>` 
- 
+              var op20 = `<div class="displaytop-list displaytopK" data-id="${data.ID}"  id="pay01"><div>${data.title}</div><div>$${data.cur_price} /${types}</div></div>`;
+
               $("#payList").append(op20);
             });
           } else if (id == 1) {
@@ -345,13 +340,12 @@ $(document).on("click","#pay12",function(){
               } else if (data.time == 7) {
                 type = "Week";
               }
-              var op21 =   `<div class="displaytop-list displaytopK" id="pay1${index}"><div>${data.title}</div><div>$${data.cur_price} /${type}</div></div>` 
- 
+              var op21 = `<div class="displaytop-list displaytopK" data-id="${data.ID}"  id="pay1${index}"><div>${data.title}</div><div>$${data.cur_price} /${type}</div></div>`;
+
               $("#payList").append(op21);
             });
           }
         } else if (res.code == 2) {
-          console.log("[[[[[");
           localStorage.removeItem("userInfo");
           window.location.href = "login.html";
         }
@@ -360,8 +354,6 @@ $(document).on("click","#pay12",function(){
   }
 
   $("#toPayment1").click(function () {
-    // goodList(1)
-    console.log("7");
     window.location.href = "pay.html?id=0";
   });
   $("#toPayment2").click(function () {

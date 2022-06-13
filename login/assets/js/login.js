@@ -210,7 +210,6 @@
   var time = 60;
   function getCodes(obj) {
     var phones = $("#phone").val();
-    // console.log("======>", phones);
     if (phones == "") {
       obj.attr("disabled", false);
       obj.html("Get Code");
@@ -222,15 +221,12 @@
       url: `${baseUrl}/noauth/getcode?phone=${phones}&areacode=${areaCode}`,
       dataType: "json",
       success: function (res) {
-        // console.log("登录成功了", res);
       },
     });
   }
 
   $("#s1").change(function () {
     areaCode = $("#s1  option:selected").text();
-    // var ssss = $("#s1 option:selected").text()
-    // console.log("互殴去 ", ssss);
   });
 
   $(".btn_yzmbutton").click(function () {
@@ -254,4 +250,110 @@
       countdown(obj);
     }, 1000);
   }
+
+  function goodList(id) {
+    var tokens = JSON.parse(localStorage.getItem("userInfo")) || ""
+
+    $.ajax({
+      type: "get",
+      url: `${baseUrl}/user/goods/list?type=${id}`,
+      dataType: "json",
+      headers: {
+        Authorization: `Bearer ${tokens.token}`
+      },
+      success: function (res) {
+        if (res.code == 0) {
+          console.log("------->", res.data.list)
+          if (id == 0) {
+            $.each(res.data.list, function (index, data) {
+              var typesd ="M"
+              if(data.time==10){
+                typesd = "M"
+              }else if(data.time == 13){
+                typesd = "Q"
+               }
+               else if(data.time == 20){
+                typesd = "Y"
+               }
+               else if(data.time == 7){
+                typesd = "Week"
+               }
+               var op =		'<a href="javascript:;" id="toPayment1" class="btn-1 how-works-item100">$' + data.cur_price +" /"+typesd+'</a>';	 
+              // var op = "<div class='payNumber'  id='" + data.id + "'>$" + data.cur_price + "/<sub>"+typesd+"</Menu></sub> </div>"
+               $("#payment19").append(op);
+            })
+
+
+          } else if (id == 2) {
+            $.each(res.data.list, function (index, data) {
+              var types ="M"
+              if(data.time==10){
+                types = "M"
+              }else if(data.time == 13){
+                types = "Q"
+               }
+               else if(data.time == 20){
+                types = "Y"
+               }
+               else if(data.time == 7){
+                types = "Week"
+               }
+               var op20 =		'<a href="javascript:;" id="toPayment1" class="btn-1 how-works-item100">$' + data.cur_price +" /"+types+'</a>';	 
+
+              // var op20 = "<div class='payNumber'  id='" + data.id + "'>$" + data.cur_price + "/<sub>"+types+"</Menu></sub> </div>"
+               $("#payment20").append(op20);
+            })
+
+
+           } else if (id == 1) {
+            $.each(res.data.list, function (index, data) {
+              var type ="M"
+              if(data.time==10){
+                type = "M"
+              }else if(data.time == 13){
+                type = "Q"
+               }
+               else if(data.time == 20){
+                type = "Y"
+               }
+               else if(data.time == 7){
+                type = "Week"
+               }
+               var op21 =		'<a href="javascript:;" style="margin-top:10px"  id="toPayment1" class="btn-1 how-works-item100">'+data.title+" $" + data.cur_price +" /"+type+'</a>';	 
+
+              // var op21 = "<div class='payNumber'  id='" + data.id + "'>"+data.title+" $" + data.cur_price + "/<sub>"+type+"</Menu></sub> </div>"
+               $("#payment21").append(op21);
+            })
+
+            }
+        } else {
+        }
+
+      },
+    });
+  }
+  goodList(0)
+  goodList(2)
+  goodList(1)
+
+
+
+
+  $("#toPayment1").click(function () {
+    // goodList(1)
+    console.log("7")
+    window.location.href = "pay.html?id=0";
+
+
+  })
+  $("#toPayment2").click(function () {
+    window.location.href = "pay.html?id=2";
+
+
+  })
+  $("#toPayment3").click(function () {
+    window.location.href = "pay.html?id=1";
+
+
+  })
 })(jQuery);

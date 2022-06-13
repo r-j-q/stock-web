@@ -28,8 +28,16 @@
     }
     .displaytop{
       display: flex;  
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 140px;
+    }
+    .displaytopK{
+      display: flex;  
       flex-direction: row;
       align-items: center;
+      justify-content: space-between;
     }
     .positionsg{
       position: absolute;
@@ -45,6 +53,30 @@
     }
     .footer-wiget-item ul li .fs{
       color: #fff;
+    }
+    .displaytop-list{
+      width: 600px;
+      height: 80px;
+      margin-top: 20px;
+      border: 1px solid #fff;
+      padding: 0 20px ;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+    }
+   .bgs {
+      background-color: #7142DF;
+    }
+    @media screen and  (max-width:720px){
+      .displaytop-list{
+      width: 300px;
+      height: 50px;
+      }
+      .bgs   {
+        border-bottom: 3px solid #7142DF;
+      }
     }
   </style>
 </head>
@@ -77,15 +109,11 @@
     <!-- End Top Menu -->
 
     <!-- Home 1 Hero -->
-    <div class="displaytop"  >
-    
-         <div class="displaytop-width">11</div>
-      
-    </div> 
+    <div class="displaytop bgs"  id="payList"> </div> 
 
 
 
-    <div class="side-fixed topnav-top">
+    <div class="side-fixed topnav-top" style="position: fixed">
       
       <div class="container">
         <div  style="text-align: center;padding: 30px 0 60px;">

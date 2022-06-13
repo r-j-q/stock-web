@@ -220,8 +220,7 @@
       type: "get",
       url: `${baseUrl}/noauth/getcode?phone=${phones}&areacode=${areaCode}`,
       dataType: "json",
-      success: function (res) {
-      },
+      success: function (res) {},
     });
   }
 
@@ -250,110 +249,142 @@
       countdown(obj);
     }, 1000);
   }
+    // $("#pay0").click(function(){
+    //   console.log("pay0")
+    // })
+    // $("#pay01").click(function(){
+    //   console.log("pay01")
+    // })
+    // $("#pay10").click(function(){
+    //   console.log("pay10")
+    // })
+    // $("#pay11").click(function(){
+    //   console.log("pay11")
+    // })
+    // $("#pay12").click(function(){
+    //   console.log("pay12")
+    // })
 
+$(document).on("click","#pay0",function(){
+  console.log("pay0")
+
+})
+$(document).on("click","#pay01",function(){
+  console.log("pay01")
+
+})
+$(document).on("click","#pay10",function(){
+  console.log("pay10")
+
+})
+$(document).on("click","#pay11",function(){
+  console.log("pay11")
+
+})
+$(document).on("click","#pay12",function(){
+  console.log("pay12")
+
+})
+
+    
   function goodList(id) {
-    var tokens = JSON.parse(localStorage.getItem("userInfo")) || ""
+    var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
 
     $.ajax({
       type: "get",
       url: `${baseUrl}/user/goods/list?type=${id}`,
       dataType: "json",
       headers: {
-        Authorization: `Bearer ${tokens.token}`
+        Authorization: `Bearer ${tokens.token}`,
       },
       success: function (res) {
         if (res.code == 0) {
-          console.log("------->", res.data.list)
+          console.log("------->", res.data.list);
           if (id == 0) {
             $.each(res.data.list, function (index, data) {
-              var typesd ="M"
-              if(data.time==10){
-                typesd = "M"
-              }else if(data.time == 13){
-                typesd = "Q"
-               }
-               else if(data.time == 20){
-                typesd = "Y"
-               }
-               else if(data.time == 7){
-                typesd = "Week"
-               }
-               var op =		'<a href="javascript:;" id="toPayment1" class="btn-1 how-works-item100">$' + data.cur_price +" /"+typesd+'</a>';	 
-              // var op = "<div class='payNumber'  id='" + data.id + "'>$" + data.cur_price + "/<sub>"+typesd+"</Menu></sub> </div>"
-               $("#payment19").append(op);
-            })
+              var typesd = "M";
+              if (data.time == 10) {
+                typesd = "M";
+              } else if (data.time == 13) {
+                typesd = "Q";
+              } else if (data.time == 20) {
+                typesd = "Y";
+              } else if (data.time == 7) {
+                typesd = "Week";
+              }
 
-
+              var op =   `<div class="displaytop-list displaytopK" id="pay0"><div>${data.title}</div><div>$${data.cur_price} /${typesd}</div></div>` 
+              
+              $("#payList").append(op);
+            });
           } else if (id == 2) {
             $.each(res.data.list, function (index, data) {
-              var types ="M"
-              if(data.time==10){
-                types = "M"
-              }else if(data.time == 13){
-                types = "Q"
-               }
-               else if(data.time == 20){
-                types = "Y"
-               }
-               else if(data.time == 7){
-                types = "Week"
-               }
-               var op20 =		'<a href="javascript:;" id="toPayment1" class="btn-1 how-works-item100">$' + data.cur_price +" /"+types+'</a>';	 
-
-              // var op20 = "<div class='payNumber'  id='" + data.id + "'>$" + data.cur_price + "/<sub>"+types+"</Menu></sub> </div>"
-               $("#payment20").append(op20);
-            })
-
-
-           } else if (id == 1) {
+              var types = "M";
+              if (data.time == 10) {
+                types = "M";
+              } else if (data.time == 13) {
+                types = "Q";
+              } else if (data.time == 20) {
+                types = "Y";
+              } else if (data.time == 7) {
+                types = "Week";
+              }
+              var op20 =   `<div class="displaytop-list displaytopK" id="pay01"><div>${data.title}</div><div>$${data.cur_price} /${types}</div></div>` 
+ 
+              $("#payList").append(op20);
+            });
+          } else if (id == 1) {
             $.each(res.data.list, function (index, data) {
-              var type ="M"
-              if(data.time==10){
-                type = "M"
-              }else if(data.time == 13){
-                type = "Q"
-               }
-               else if(data.time == 20){
-                type = "Y"
-               }
-               else if(data.time == 7){
-                type = "Week"
-               }
-               var op21 =		'<a href="javascript:;" style="margin-top:10px"  id="toPayment1" class="btn-1 how-works-item100">'+data.title+" $" + data.cur_price +" /"+type+'</a>';	 
-
-              // var op21 = "<div class='payNumber'  id='" + data.id + "'>"+data.title+" $" + data.cur_price + "/<sub>"+type+"</Menu></sub> </div>"
-               $("#payment21").append(op21);
-            })
-
-            }
-        } else {
+              var type = "M";
+              if (data.time == 10) {
+                type = "M";
+              } else if (data.time == 13) {
+                type = "Q";
+              } else if (data.time == 20) {
+                type = "Y";
+              } else if (data.time == 7) {
+                type = "Week";
+              }
+              var op21 =   `<div class="displaytop-list displaytopK" id="pay1${index}"><div>${data.title}</div><div>$${data.cur_price} /${type}</div></div>` 
+ 
+              $("#payList").append(op21);
+            });
+          }
+        } else if (res.code == 2) {
+          console.log("[[[[[");
+          localStorage.removeItem("userInfo");
+          window.location.href = "login.html";
         }
-
       },
     });
   }
-  goodList(0)
-  goodList(2)
-  goodList(1)
-
-
-
 
   $("#toPayment1").click(function () {
     // goodList(1)
-    console.log("7")
+    console.log("7");
     window.location.href = "pay.html?id=0";
-
-
-  })
+  });
   $("#toPayment2").click(function () {
     window.location.href = "pay.html?id=2";
-
-
-  })
+  });
   $("#toPayment3").click(function () {
     window.location.href = "pay.html?id=1";
+  });
 
+  var ids = getUrlParam("id") || "no";
+  if (ids == 0) {
+    goodList(0);
+  } else if (ids == 2) {
+    goodList(2);
+  } else if (ids == 1) {
+    goodList(1);
+  }
 
-  })
+  function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+
+    return null;
+  }
 })(jQuery);

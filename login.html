@@ -328,6 +328,44 @@
           window.location.href = "register.html";
         }
       });
+      let _tempPosition = "center";
+
+  // 第三步：初始化插件
+  const tzAlert = new TzAlert({
+    id: "alert1",
+    center: true, // 内容居中
+    useEscClose: false,
+    useInitShow: false, // 实例化完成直接显示
+    useMaskClose: true,
+    title: {
+      html: "",
+      color: "#ff80ab",
+      fontSize: "18px",
+    },
+    mask: {
+      use: true,
+      background: "rgba(0,0,0,.6)",
+    },
+    //  html: 默认双击内容部分即可复制
+    tips: {
+      html: "",
+    },
+    content: {
+      html: "message",
+    },
+    onEvents: function (e) {
+      var ctx = e.ctx,
+        cancel = e.cancel,
+        confirm = e.confirm;
+      if (e.cancel) {
+        tzAlert.close();
+        e.ctx.close();
+      } else if (e.confirm) {
+      }
+    },
+    onMounted: function () {},
+  });
+
       // 动画显示https://www.jq22.com/jquery-info24247
       function fnShowAnimate(animate, content) {
         tzAlert.open({

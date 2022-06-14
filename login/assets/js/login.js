@@ -161,7 +161,7 @@
       success: function (res) {
         console.log("创建订单", res);
         if(res.code == 0){
-          fnShowAnimate("zoom-in", res.msg);
+          // fnShowAnimate("zoom-in", res.msg);
           window.location.href =  "index.html"
         }
         

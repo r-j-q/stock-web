@@ -247,43 +247,72 @@
       countdown(obj);
     }, 1000);
   }
-  var goods_id = "";
+  $("#paypal-button-container").hide();
+  var goods_id = "",
+    price = 0;
   $(document).on("click", "#pay0", function () {
     goods_id = $("#pay0").data("id");
-    createdOrder(goods_id);
+    price = $("#pay0").data("price");
+    $("#paypal-button-container").show();
+    // createdOrder()
+    // createdOrders(price);
   });
   $(document).on("click", "#pay01", function () {
     goods_id = $("#pay01").data("id");
-    createdOrder(goods_id);
+    price = $("#pay01").data("price");
+    $("#paypal-button-container").show();
+
+    // createdOrders(price);
   });
   $(document).on("click", "#pay10", function () {
     goods_id = $("#pay10").data("id");
-    createdOrder(goods_id);
+    price = $("#pay10").data("price");
+    $("#paypal-button-container").show();
+
+    // createdOrders(price);
   });
   $(document).on("click", "#pay11", function () {
     goods_id = $("#pay11").data("id");
-    createdOrder(goods_id);
+    price = $("#pay11").data("price");
+    $("#paypal-button-container").show();
+
+    // createdOrders(price);
   });
   $(document).on("click", "#pay12", function () {
     goods_id = $("#pay12").data("id");
-    createdOrder(goods_id);
+    price = $("#pay12").data("price");
+    $("#paypal-button-container").show();
+
+    // createdOrders(price);
   });
-  function createdOrder(goods_id) {
+  function createdOrder(goods_id, transactionid) {
     var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
 
     $.ajax({
       type: "get",
-      url: `${baseUrl}/user/order/create?paytype=paypal&goods_id=${goods_id}`,
+      url: `${baseUrl}/user/pay/jscallback?paytype=paypal&goods_id=${goods_id}&transactionid=${transactionid}`,
       dataType: "json",
       headers: {
         Authorization: `Bearer ${tokens.token}`,
       },
       success: function (res) {
         console.log("创建订单", res);
-        window.location.href = res.data.pay_url
+        if(res.code == 0){
+          fnShowAnimate("zoom-in", res.msg);
+          window.location.href =  "index.html"
+        }
+        
+
+        //  
       },
     });
   }
+ 
+ 
+
+  // }
+
+  // 支付模块
 
   function goodList(id) {
     var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
@@ -310,7 +339,13 @@
                 typesd = "Week";
               }
 
-              var op = `<div class="displaytop-list displaytopK" data-id="${data.ID}" id="pay0"><span  style="display:none">${data.ID}</span><div>${data.title}</div><div>$${data.cur_price/100} /${typesd}</div></div>`;
+              var op = `<div class="displaytop-list displaytopK" data-id="${
+                data.ID
+              }" data-price="${
+                data.cur_price
+              }" id="pay0"><span  style="display:none">${data.ID}</span><div>${
+                data.title
+              }</div><div>$${data.cur_price / 100} /${typesd}</div></div>`;
 
               $("#payList").append(op);
             });
@@ -326,7 +361,11 @@
               } else if (data.time == 7) {
                 types = "Week";
               }
-              var op20 = `<div class="displaytop-list displaytopK" data-id="${data.ID}"  id="pay01"><div>${data.title}</div><div>$${data.cur_price/100} /${types}</div></div>`;
+              var op20 = `<div class="displaytop-list displaytopK" data-id="${
+                data.ID
+              }"   data-price="${data.cur_price}" id="pay01"><div>${
+                data.title
+              }</div><div>$${data.cur_price / 100} /${types}</div></div>`;
 
               $("#payList").append(op20);
             });
@@ -342,7 +381,11 @@
               } else if (data.time == 7) {
                 type = "Week";
               }
-              var op21 = `<div class="displaytop-list displaytopK" data-id="${data.ID}"  id="pay1${index}"><div>${data.title}</div><div>$${data.cur_price/100} /${type}</div></div>`;
+              var op21 = `<div class="displaytop-list displaytopK" data-id="${
+                data.ID
+              }"  data-price="${data.cur_price}"  id="pay1${index}"><div>${
+                data.title
+              }</div><div>$${data.cur_price / 100} /${type}</div></div>`;
 
               $("#payList").append(op21);
             });
@@ -354,16 +397,7 @@
       },
     });
   }
-
-  $("#toPayment1").click(function () {
-    window.location.href = "pay.html?id=0";
-  });
-  $("#toPayment2").click(function () {
-    window.location.href = "pay.html?id=2";
-  });
-  $("#toPayment3").click(function () {
-    window.location.href = "pay.html?id=1";
-  });
+ 
 
   var ids = getUrlParam("id") || "no";
   if (ids == 0) {
@@ -381,4 +415,34 @@
 
     return null;
   }
+
+
+  paypal
+    .Buttons({ 
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: price / 100,
+              },
+            },
+          ],
+        });
+      },
+      onApprove: (data, actions) => {
+        return actions.order.capture().then(function (orderData) {
+          console.log("=goods_id===>", goods_id);
+          console.log(
+            "Capture result====》",
+            orderData,
+            JSON.stringify(orderData, null, 2)
+          );
+          const transaction = orderData.purchase_units[0].payments.captures[0];
+          createdOrder(goods_id, transaction.id);
+          // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+        });
+      },
+    })
+    .render("#paypal-button-container");
 })(jQuery);

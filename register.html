@@ -44,7 +44,7 @@
     </style>
   </head>
 
-  <body class="login-page sidebar-collapse">
+  <body class="login-page sidebar-collapse" style="overflow-y: scroll">
     <div class="page-header" filter-color="orange">
       <div
         class="page-header-image"
@@ -119,6 +119,24 @@
                     </option>
                     <option
                       style="color: #fff; background-color: black"
+                      value="00234"
+                    >
+                      00234
+                    </option>
+                    <option
+                      style="color: #fff; background-color: black"
+                      value="0031"
+                    >
+                      0031
+                    </option>
+                    <option
+                      style="color: #fff; background-color: black"
+                      value="0055"
+                    >
+                      0055
+                    </option>
+                    <option
+                      style="color: #fff; background-color: black"
                       value="0061"
                     >
                       0061
@@ -128,6 +146,12 @@
                       value="00852"
                     >
                       00852
+                    </option>
+                    <option
+                      style="color: #fff; background-color: black"
+                      value="00853"
+                    >
+                      00853
                     </option>
                     <option
                       style="color: #fff; background-color: black"
@@ -141,6 +165,13 @@
                     >
                       0081
                     </option>
+                    <option
+                      style="color: #fff; background-color: black"
+                      value="0082"
+                    >
+                      0082
+                    </option>
+
                     <option
                       style="color: #fff; background-color: black"
                       value="0044"
@@ -167,9 +198,15 @@
                     </option>
                     <option
                       style="color: #fff; background-color: black"
-                      value="00886"
+                      value="0091"
                     >
-                      00886
+                      0091
+                    </option>
+                    <option
+                      style="color: #fff; background-color: black"
+                      value="00353"
+                    >
+                      00353
                     </option>
                   </select>
                   <input
@@ -320,8 +357,131 @@
     src="login/assets/js/now-ui-kit.js?v=1.1.0"
     type="text/javascript"
   ></script>
-  <script
+  <!-- <script
     src="login/assets/js/login.js?v=1.1.0"
     type="text/javascript"
-  ></script>
+  ></script> -->
+
+  <script>
+    (function ($) {
+      var baseUrl = "https://api.stock-plouto.com";
+      var userInfo = localStorage.getItem("userInfo");
+      var _tempPosition = "center";
+      var areaCode = "001";
+      $("#s1").change(function () {
+        areaCode = $("#s1  option:selected").text();
+      });
+      $(".btn_yzmbutton").click(function () {
+        var obj = $(".btn_yzmbutton");
+        getCodes(obj);
+        countdown(obj);
+      });
+      $("#registerBtn").click(function () {
+        var registerUser = {
+          username: $("#username").val(),
+          password: $("#password").val(),
+          rePassword: $("#rePassword").val(),
+          email: $("#email").val(),
+          phone: $("#phone").val(),
+          code: $("#code").val(),
+        };
+        if (
+          $("#username").val() == "" ||
+          $("#phone").val() == "" ||
+          $("#email").val() == "" ||
+          $("#password").val() == "" ||
+          $("#rePassword").val() == "" ||
+          $("#code").val() == ""
+        ) {
+          fnShowAnimate("zoom-in", "Incorrect information");
+          return;
+        }
+        if ($("#password").val() != $("#rePassword").val()) {
+          fnShowAnimate("zoom-in", "Incorrect information");
+          return;
+        }
+
+        var emailRegExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        var ok = emailRegExp.test($("#email").val());
+
+        if (ok) {
+        } else {
+          // 输入的格式不符合要求
+          fnShowAnimate("zoom-in", "Error email");
+          return;
+        }
+
+        // console.log("注册参数2", registerUser);
+        $.ajax({
+          type: "post",
+          url: `${baseUrl}/auth/register`,
+          data: registerUser,
+          dataType: "json",
+          success: function (res) {
+            if (res.code == 0) {
+              window.location.href = "login.html";
+            } else {
+              fnShowAnimate("zoom-in", res.msg);
+            }
+            // console.log("======>", res);
+            // window.location.href = "login.html";
+          },
+        });
+      });
+
+      function countdown(obj) {
+        if (time == 0) {
+          obj.attr("disabled", false);
+          obj.html("Get Code");
+          time = 60;
+          return;
+        } else {
+          obj.attr("disabled", true);
+          obj.html(time + "s");
+          time--;
+        }
+        setTimeout(function () {
+          countdown(obj);
+        }, 1000);
+      }
+      var time = 60;
+      function getCodes(obj) {
+        var phones = $("#phone").val();
+        if (phones == "") {
+          obj.attr("disabled", false);
+          obj.html("Get Code");
+          fnShowAnimate("zoom-in", "Telephone error");
+          return;
+        }
+        $.ajax({
+          type: "get",
+          url: `${baseUrl}/noauth/getcode?phone=${phones}&areacode=${areaCode}`,
+          dataType: "json",
+          success: function (res) {},
+        });
+      }
+      // 动画显示https://www.jq22.com/jquery-info24247
+      function fnShowAnimate(animate, content) {
+        tzAlert.open({
+          position: _tempPosition,
+          animate: animate,
+          maskClose: true,
+          width: "300px",
+          mask: {
+            use: true,
+            background: "rgba(0,0,0,.6)",
+          },
+          cancel: {
+            use: false,
+          },
+          confirm: {
+            use: false,
+          },
+          content: {
+            html: content,
+          },
+        });
+      }
+    })(jQuery);
+  </script>
 </html>

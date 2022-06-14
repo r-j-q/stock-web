@@ -169,11 +169,27 @@
   <script src="login/assets/js/login.js?v=1.1.0" type="text/javascript"></script>
   <script>
     $(window).on('load', function () {
+       
       $('#preloader').delay(350).fadeOut('slow');
-      $('body').delay(350).css({
-        'overflow': 'visible'
-      });
+		$('body').delay(350).css({
+			'overflow': 'visible'
+		});
+	var userInfos= JSON.parse(	localStorage.getItem("userInfo"));
+	if(userInfos?.token){
+        $("#userName").text( `Welcome ${userInfos.username}` )
+	    $("#loginIn").hide()
+		$("#loginIns").hide() 
+       }else{
+		$("#userName").text("Login In")
+	    $("#loginIn").show()
+		$("#loginIns").show()
+
+	   } 
     });
+
+     
+ 
+ 
   </script>
 
   <style>

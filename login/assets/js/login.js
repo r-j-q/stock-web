@@ -10,102 +10,22 @@
       // $(".loginIn").show()
     }
 
-    $(".loginIn").click(function () {
-      // var userInfo = localStorage.getItem("userInfo");
-      // console.log("------>", typeof userInfo);
-      if (userInfo == null || typeof userInfo == "string") {
-        localStorage.removeItem("userInfo");
-        window.location.href = "login.html";
-      }
-    });
+    // $(".loginIn").click(function () {
+    //   // var userInfo = localStorage.getItem("userInfo");
+    //   // console.log("------>", typeof userInfo);
+    //   if (userInfo == null || typeof userInfo == "string") {
+    //     localStorage.removeItem("userInfo");
+    //     window.location.href = "login.html";
+    //   }
+    // });
 
-    $("#ploutoRegister").click(function () {
-      if (userInfo == null) {
-        window.location.href = "register.html";
-      }
-    });
+    // $("#ploutoRegister").click(function () {
+    //   if (userInfo == null) {
+    //     window.location.href = "register.html";
+    //   }
+    // });
   });
-  $("#registerBtn").click(function () {
-    var registerUser = {
-      username: $("#username").val(),
-      password: $("#password").val(),
-      rePassword: $("#rePassword").val(),
-      email: $("#email").val(),
-      phone: $("#phone").val(),
-      code: $("#code").val(),
-    };
-    if (
-      $("#username").val() == "" ||
-      $("#phone").val() == "" ||
-      $("#email").val() == "" ||
-      $("#password").val() == "" ||
-      $("#rePassword").val() == "" ||
-      $("#code").val() == ""
-    ) {
-      fnShowAnimate("zoom-in", "Incorrect information");
-      return;
-    }
-    if ($("#password").val() != $("#rePassword").val()) {
-      fnShowAnimate("zoom-in", "Incorrect information");
-      return;
-    }
-
-    var emailRegExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    var ok = emailRegExp.test($("#email").val());
-
-    if (ok) {
-    } else {
-      // 输入的格式不符合要求
-      fnShowAnimate("zoom-in", "Error email");
-      return;
-    }
-
-    // console.log("注册参数2", registerUser);
-    $.ajax({
-      type: "post",
-      url: `${baseUrl}/auth/register`,
-      data: registerUser,
-      dataType: "json",
-      success: function (res) {
-        if (res.code == 0) {
-          window.location.href = "login.html";
-        } else {
-          fnShowAnimate("zoom-in", res.msg);
-        }
-        // console.log("======>", res);
-        // window.location.href = "login.html";
-      },
-    });
-  });
-
-  $("#loginBtn").click(function () {
-    if ($("#username").val() == "" || $("#password").val() == "") {
-      fnShowAnimate("zoom-in", "Incorrect information");
-      return;
-    }
-    var user = {
-      username: $("#username").val(),
-      password: $("#password").val(),
-    };
-    // console.log("登录参数", user);
-
-    $.ajax({
-      type: "post",
-      url: `${baseUrl}/auth/login`,
-      data: user,
-      dataType: "json",
-      success: function (res) {
-        // console.log("登录成功了", res);
-        if (res.code == 1) {
-          fnShowAnimate("zoom-in", res.msg);
-        } else {
-          var data = JSON.stringify(res.data);
-          localStorage.setItem("userInfo", data || null);
-          window.location.href = "index.html";
-        }
-      },
-    });
-  });
+   
 
   let _tempPosition = "center";
 
@@ -145,28 +65,7 @@
     onMounted: function () {},
   });
 
-  // 动画显示https://www.jq22.com/jquery-info24247
-  function fnShowAnimate(animate, content) {
-    tzAlert.open({
-      position: _tempPosition,
-      animate: animate,
-      maskClose: true,
-      width: "300px",
-      mask: {
-        use: true,
-        background: "rgba(0,0,0,.6)",
-      },
-      cancel: {
-        use: false,
-      },
-      confirm: {
-        use: false,
-      },
-      content: {
-        html: content,
-      },
-    });
-  }
+ 
   //弹窗 https://www.jq22.com/jquery-info24247
   function showMsg(text, icon, hideAfter) {
     if (heading == undefined) {
@@ -204,49 +103,13 @@
       },
     });
   }
+ 
 
-  var time = 60;
-  function getCodes(obj) {
-    var phones = $("#phone").val();
-    if (phones == "") {
-      obj.attr("disabled", false);
-      obj.html("Get Code");
-      fnShowAnimate("zoom-in", "Telephone error");
-      return;
-    }
-    $.ajax({
-      type: "get",
-      url: `${baseUrl}/noauth/getcode?phone=${phones}&areacode=${areaCode}`,
-      dataType: "json",
-      success: function (res) {},
-    });
-  }
+  
 
-  $("#s1").change(function () {
-    areaCode = $("#s1  option:selected").text();
-  });
+ 
 
-  $(".btn_yzmbutton").click(function () {
-    var obj = $(".btn_yzmbutton");
-    getCodes(obj);
-    countdown(obj);
-  });
-
-  function countdown(obj) {
-    if (time == 0) {
-      obj.attr("disabled", false);
-      obj.html("Get Code");
-      time = 60;
-      return;
-    } else {
-      obj.attr("disabled", true);
-      obj.html(time + "s");
-      time--;
-    }
-    setTimeout(function () {
-      countdown(obj);
-    }, 1000);
-  }
+ 
   $("#paypal-button-container").hide();
   var goods_id = "",
     price = 0;

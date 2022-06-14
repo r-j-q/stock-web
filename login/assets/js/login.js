@@ -2,6 +2,7 @@
   "use strict";
 
   var baseUrl = "https://api.stock-plouto.com";
+  // var baseUrl = "http://192.168.1.20:8080";
   var areaCode = "001";
   $(document).ready(function () {
     var userInfo = localStorage.getItem("userInfo");
@@ -272,13 +273,14 @@
 
     $.ajax({
       type: "get",
-      url: `${baseUrl}/order/create?paytype=paypal&goods_id=${goods_id}`,
+      url: `${baseUrl}/user/order/create?paytype=paypal&goods_id=${goods_id}`,
       dataType: "json",
       headers: {
         Authorization: `Bearer ${tokens.token}`,
       },
       success: function (res) {
         console.log("创建订单", res);
+        window.location.href = res.data.pay_url
       },
     });
   }
@@ -308,7 +310,7 @@
                 typesd = "Week";
               }
 
-              var op = `<div class="displaytop-list displaytopK" data-id="${data.ID}" id="pay0"><span  style="display:none">${data.ID}</span><div>${data.title}</div><div>$${data.cur_price} /${typesd}</div></div>`;
+              var op = `<div class="displaytop-list displaytopK" data-id="${data.ID}" id="pay0"><span  style="display:none">${data.ID}</span><div>${data.title}</div><div>$${data.cur_price/100} /${typesd}</div></div>`;
 
               $("#payList").append(op);
             });
@@ -324,7 +326,7 @@
               } else if (data.time == 7) {
                 types = "Week";
               }
-              var op20 = `<div class="displaytop-list displaytopK" data-id="${data.ID}"  id="pay01"><div>${data.title}</div><div>$${data.cur_price} /${types}</div></div>`;
+              var op20 = `<div class="displaytop-list displaytopK" data-id="${data.ID}"  id="pay01"><div>${data.title}</div><div>$${data.cur_price/100} /${types}</div></div>`;
 
               $("#payList").append(op20);
             });
@@ -340,7 +342,7 @@
               } else if (data.time == 7) {
                 type = "Week";
               }
-              var op21 = `<div class="displaytop-list displaytopK" data-id="${data.ID}"  id="pay1${index}"><div>${data.title}</div><div>$${data.cur_price} /${type}</div></div>`;
+              var op21 = `<div class="displaytop-list displaytopK" data-id="${data.ID}"  id="pay1${index}"><div>${data.title}</div><div>$${data.cur_price/100} /${type}</div></div>`;
 
               $("#payList").append(op21);
             });

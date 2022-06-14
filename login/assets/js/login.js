@@ -10,102 +10,22 @@
       // $(".loginIn").show()
     }
 
-    $(".loginIn").click(function () {
-      // var userInfo = localStorage.getItem("userInfo");
-      // console.log("------>", typeof userInfo);
-      if (userInfo == null || typeof userInfo == "string") {
-        localStorage.removeItem("userInfo");
-        window.location.href = "login.html";
-      }
-    });
+    // $(".loginIn").click(function () {
+    //   // var userInfo = localStorage.getItem("userInfo");
+    //   // console.log("------>", typeof userInfo);
+    //   if (userInfo == null || typeof userInfo == "string") {
+    //     localStorage.removeItem("userInfo");
+    //     window.location.href = "login.html";
+    //   }
+    // });
 
-    $("#ploutoRegister").click(function () {
-      if (userInfo == null) {
-        window.location.href = "register.html";
-      }
-    });
+    // $("#ploutoRegister").click(function () {
+    //   if (userInfo == null) {
+    //     window.location.href = "register.html";
+    //   }
+    // });
   });
-  $("#registerBtn").click(function () {
-    var registerUser = {
-      username: $("#username").val(),
-      password: $("#password").val(),
-      rePassword: $("#rePassword").val(),
-      email: $("#email").val(),
-      phone: $("#phone").val(),
-      code: $("#code").val(),
-    };
-    if (
-      $("#username").val() == "" ||
-      $("#phone").val() == "" ||
-      $("#email").val() == "" ||
-      $("#password").val() == "" ||
-      $("#rePassword").val() == "" ||
-      $("#code").val() == ""
-    ) {
-      fnShowAnimate("zoom-in", "Incorrect information");
-      return;
-    }
-    if ($("#password").val() != $("#rePassword").val()) {
-      fnShowAnimate("zoom-in", "Incorrect information");
-      return;
-    }
-
-    var emailRegExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    var ok = emailRegExp.test($("#email").val());
-
-    if (ok) {
-    } else {
-      // 输入的格式不符合要求
-      fnShowAnimate("zoom-in", "Error email");
-      return;
-    }
-
-    // console.log("注册参数2", registerUser);
-    $.ajax({
-      type: "post",
-      url: `${baseUrl}/auth/register`,
-      data: registerUser,
-      dataType: "json",
-      success: function (res) {
-        if (res.code == 0) {
-          window.location.href = "login.html";
-        } else {
-          fnShowAnimate("zoom-in", res.msg);
-        }
-        // console.log("======>", res);
-        // window.location.href = "login.html";
-      },
-    });
-  });
-
-  $("#loginBtn").click(function () {
-    if ($("#username").val() == "" || $("#password").val() == "") {
-      fnShowAnimate("zoom-in", "Incorrect information");
-      return;
-    }
-    var user = {
-      username: $("#username").val(),
-      password: $("#password").val(),
-    };
-    // console.log("登录参数", user);
-
-    $.ajax({
-      type: "post",
-      url: `${baseUrl}/auth/login`,
-      data: user,
-      dataType: "json",
-      success: function (res) {
-        // console.log("登录成功了", res);
-        if (res.code == 1) {
-          fnShowAnimate("zoom-in", res.msg);
-        } else {
-          var data = JSON.stringify(res.data);
-          localStorage.setItem("userInfo", data || null);
-          window.location.href = "index.html";
-        }
-      },
-    });
-  });
+   
 
   let _tempPosition = "center";
 
@@ -145,28 +65,7 @@
     onMounted: function () {},
   });
 
-  // 动画显示https://www.jq22.com/jquery-info24247
-  function fnShowAnimate(animate, content) {
-    tzAlert.open({
-      position: _tempPosition,
-      animate: animate,
-      maskClose: true,
-      width: "300px",
-      mask: {
-        use: true,
-        background: "rgba(0,0,0,.6)",
-      },
-      cancel: {
-        use: false,
-      },
-      confirm: {
-        use: false,
-      },
-      content: {
-        html: content,
-      },
-    });
-  }
+ 
   //弹窗 https://www.jq22.com/jquery-info24247
   function showMsg(text, icon, hideAfter) {
     if (heading == undefined) {
@@ -204,86 +103,79 @@
       },
     });
   }
+ 
 
-  var time = 60;
-  function getCodes(obj) {
-    var phones = $("#phone").val();
-    if (phones == "") {
-      obj.attr("disabled", false);
-      obj.html("Get Code");
-      fnShowAnimate("zoom-in", "Telephone error");
-      return;
-    }
-    $.ajax({
-      type: "get",
-      url: `${baseUrl}/noauth/getcode?phone=${phones}&areacode=${areaCode}`,
-      dataType: "json",
-      success: function (res) {},
-    });
-  }
+  
 
-  $("#s1").change(function () {
-    areaCode = $("#s1  option:selected").text();
-  });
+ 
 
-  $(".btn_yzmbutton").click(function () {
-    var obj = $(".btn_yzmbutton");
-    getCodes(obj);
-    countdown(obj);
-  });
-
-  function countdown(obj) {
-    if (time == 0) {
-      obj.attr("disabled", false);
-      obj.html("Get Code");
-      time = 60;
-      return;
-    } else {
-      obj.attr("disabled", true);
-      obj.html(time + "s");
-      time--;
-    }
-    setTimeout(function () {
-      countdown(obj);
-    }, 1000);
-  }
-  var goods_id = "";
+ 
+  $("#paypal-button-container").hide();
+  var goods_id = "",
+    price = 0;
   $(document).on("click", "#pay0", function () {
     goods_id = $("#pay0").data("id");
-    createdOrder(goods_id);
+    price = $("#pay0").data("price");
+    $("#paypal-button-container").show();
+    // createdOrder()
+    // createdOrders(price);
   });
   $(document).on("click", "#pay01", function () {
     goods_id = $("#pay01").data("id");
-    createdOrder(goods_id);
+    price = $("#pay01").data("price");
+    $("#paypal-button-container").show();
+
+    // createdOrders(price);
   });
   $(document).on("click", "#pay10", function () {
     goods_id = $("#pay10").data("id");
-    createdOrder(goods_id);
+    price = $("#pay10").data("price");
+    $("#paypal-button-container").show();
+
+    // createdOrders(price);
   });
   $(document).on("click", "#pay11", function () {
     goods_id = $("#pay11").data("id");
-    createdOrder(goods_id);
+    price = $("#pay11").data("price");
+    $("#paypal-button-container").show();
+
+    // createdOrders(price);
   });
   $(document).on("click", "#pay12", function () {
     goods_id = $("#pay12").data("id");
-    createdOrder(goods_id);
+    price = $("#pay12").data("price");
+    $("#paypal-button-container").show();
+
+    // createdOrders(price);
   });
-  function createdOrder(goods_id) {
+  function createdOrder(goods_id, transactionid) {
     var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
 
     $.ajax({
       type: "get",
-      url: `${baseUrl}/user/order/create?paytype=paypal&goods_id=${goods_id}`,
+      url: `${baseUrl}/user/pay/jscallback?paytype=paypal&goods_id=${goods_id}&transactionid=${transactionid}`,
       dataType: "json",
       headers: {
         Authorization: `Bearer ${tokens.token}`,
       },
       success: function (res) {
         console.log("创建订单", res);
-        window.location.href = res.data.pay_url
+        if(res.code == 0){
+          fnShowAnimate("zoom-in", res.msg);
+          window.location.href =  "index.html"
+        }
+        
+
+        //  
       },
     });
   }
+ 
+ 
+
+  // }
+
+  // 支付模块
 
   function goodList(id) {
     var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
@@ -310,7 +202,13 @@
                 typesd = "Week";
               }
 
-              var op = `<div class="displaytop-list displaytopK" data-id="${data.ID}" id="pay0"><span  style="display:none">${data.ID}</span><div>${data.title}</div><div>$${data.cur_price/100} /${typesd}</div></div>`;
+              var op = `<div class="displaytop-list displaytopK" data-id="${
+                data.ID
+              }" data-price="${
+                data.cur_price
+              }" id="pay0"><span  style="display:none">${data.ID}</span><div>${
+                data.title
+              }</div><div>$${data.cur_price / 100} /${typesd}</div></div>`;
 
               $("#payList").append(op);
             });
@@ -326,7 +224,11 @@
               } else if (data.time == 7) {
                 types = "Week";
               }
-              var op20 = `<div class="displaytop-list displaytopK" data-id="${data.ID}"  id="pay01"><div>${data.title}</div><div>$${data.cur_price/100} /${types}</div></div>`;
+              var op20 = `<div class="displaytop-list displaytopK" data-id="${
+                data.ID
+              }"   data-price="${data.cur_price}" id="pay01"><div>${
+                data.title
+              }</div><div>$${data.cur_price / 100} /${types}</div></div>`;
 
               $("#payList").append(op20);
             });
@@ -342,7 +244,11 @@
               } else if (data.time == 7) {
                 type = "Week";
               }
-              var op21 = `<div class="displaytop-list displaytopK" data-id="${data.ID}"  id="pay1${index}"><div>${data.title}</div><div>$${data.cur_price/100} /${type}</div></div>`;
+              var op21 = `<div class="displaytop-list displaytopK" data-id="${
+                data.ID
+              }"  data-price="${data.cur_price}"  id="pay1${index}"><div>${
+                data.title
+              }</div><div>$${data.cur_price / 100} /${type}</div></div>`;
 
               $("#payList").append(op21);
             });
@@ -354,16 +260,7 @@
       },
     });
   }
-
-  $("#toPayment1").click(function () {
-    window.location.href = "pay.html?id=0";
-  });
-  $("#toPayment2").click(function () {
-    window.location.href = "pay.html?id=2";
-  });
-  $("#toPayment3").click(function () {
-    window.location.href = "pay.html?id=1";
-  });
+ 
 
   var ids = getUrlParam("id") || "no";
   if (ids == 0) {
@@ -381,4 +278,34 @@
 
     return null;
   }
+
+
+  paypal
+    .Buttons({ 
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: price / 100,
+              },
+            },
+          ],
+        });
+      },
+      onApprove: (data, actions) => {
+        return actions.order.capture().then(function (orderData) {
+          console.log("=goods_id===>", goods_id);
+          console.log(
+            "Capture result====》",
+            orderData,
+            JSON.stringify(orderData, null, 2)
+          );
+          const transaction = orderData.purchase_units[0].payments.captures[0];
+          createdOrder(goods_id, transaction.id);
+          // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+        });
+      },
+    })
+    .render("#paypal-button-container");
 })(jQuery);

@@ -25,6 +25,7 @@
       -webkit-box-shadow: 0px 17px 41px -36px rgba(0, 0, 0, 0.75);
       -moz-box-shadow: 0px 17px 41px -36px rgba(0, 0, 0, 0.75);
       box-shadow: 0px 17px 41px -36px rgba(0, 0, 0, 0.75);
+      
     }
     .displaytop{
       display: flex;  
@@ -72,6 +73,20 @@
     .displaytopK:hover{
     border: 3px solid #fff;
     }
+    .register-style-view{
+      width: 100%;
+      height: 100%;
+      
+    }
+    .side-wrapper{
+       position: relative;
+    }
+    .tops{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
     @media screen and  (max-width:720px){
       .displaytop-list{
       width: 300px;
@@ -82,17 +97,21 @@
       }
     }
   </style>
-</head>
-
-<body style="background-color: #7142DF;">
+</head> 
+<!-- PAYPAL_SECRET="EP0McFUDzvP76wO49FmDZ7HMIwTS5wJ3UFHU3qjWDZNVmhNlCmoIUpEU8PPkBtFuCXZv9cu_NRRD7e40" -->
+ <script src="https://www.paypal.com/sdk/js?client-id=AbufdVHdONnz3SkeKGE83uQt3UsAUO1OinMdyQ_fmN-5kyQq2hjSRztOATqpAIDJpHN5_58-iL8QO-Lw&currency=USD"></script>
+    
+    <!-- <script > paypal.Buttons().render('body')</script>  -->
+<body style="background-color: #7142DF;"  >
  
  
 
   <div class="side-wrapper">
+   
     <!-- Top Menu -->
     <header class="topnav-top">
-      
-      <nav id="cssmenu" class="container ">
+      <!-- <img class="register-style-view" src="login/assets/img/register.jpg" alt="" srcset=""> -->
+      <nav id="cssmenu" class="container  tops">
         <div class="logo">
           Stock Plouto
         </div>
@@ -112,7 +131,9 @@
     <!-- End Top Menu -->
 
     <!-- Home 1 Hero -->
-    <div class="displaytop bgs"  id="payList"> </div> 
+    <div class="displaytop bgs"  id="payList">
+      <div id="paypal-button-container"></div> 
+    </div> 
 
 
 
@@ -148,11 +169,27 @@
   <script src="login/assets/js/login.js?v=1.1.0" type="text/javascript"></script>
   <script>
     $(window).on('load', function () {
+       
       $('#preloader').delay(350).fadeOut('slow');
-      $('body').delay(350).css({
-        'overflow': 'visible'
-      });
+		$('body').delay(350).css({
+			'overflow': 'visible'
+		});
+	var userInfos= JSON.parse(	localStorage.getItem("userInfo"));
+	if(userInfos?.token){
+        $("#userName").text( `Welcome ${userInfos.username}` )
+	    $("#loginIn").hide()
+		$("#loginIns").hide() 
+       }else{
+		$("#userName").text("Login In")
+	    $("#loginIn").show()
+		$("#loginIns").show()
+
+	   } 
     });
+
+     
+ 
+ 
   </script>
 
   <style>
@@ -168,6 +205,11 @@
     Collect from <a href="http://www.stockplouto.com/" title=""></a>
     <a href="https://www.stockplouto.com/" title=""></a>
   </div>
+   <script>
+
+   
+
+   </script>
 </body>
 
 </html>

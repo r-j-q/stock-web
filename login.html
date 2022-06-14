@@ -35,10 +35,6 @@
     />
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
-
-    <!-- <script src="https://www.paypal.com/sdk/js?client-id=AbufdVHdONnz3SkeKGE83uQt3UsAUO1OinMdyQ_fmN-5kyQq2hjSRztOATqpAIDJpHN5_58-iL8QO-Lw"></script>
-    
-    <script > paypal.Buttons().render('body')</script> -->
   </head>
 
   <body class="login-page sidebar-collapse">
@@ -198,11 +194,11 @@
                   <span class="input-group-addon">
                     <i class="now-ui-icons text_caps-small"></i>
                   </span>
-                  <input 
-                    id="password" 
-                    type="password" 
-                    placeholder="Password" 
-                    autocomplete="new-password" 
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    autocomplete="new-password"
                     class="form-control"
                   />
                 </div>
@@ -284,12 +280,76 @@
     src="login/assets/js/now-ui-kit.js?v=1.1.0"
     type="text/javascript"
   ></script>
-  <script
+  <!-- <script
     src="login/assets/js/login.js?v=1.1.0"
     type="text/javascript"
-  ></script>
+  ></script> -->
   <script
     src="login/assets/js/toast.js?v=1.1.0"
     type="text/javascript"
   ></script>
+
+  <script>
+    (function ($) {
+      var baseUrl = "https://api.stock-plouto.com";
+
+      var userInfo = localStorage.getItem("userInfo");
+      $("#loginBtn").click(function () {
+        if ($("#username").val() == "" || $("#password").val() == "") {
+          fnShowAnimate("zoom-in", "Incorrect information");
+          return;
+        }
+        var user = {
+          username: $("#username").val(),
+          password: $("#password").val(),
+        };
+        // console.log("登录参数", user);
+
+        $.ajax({
+          type: "post",
+          url: `${baseUrl}/auth/login`,
+          data: user,
+          dataType: "json",
+          success: function (res) {
+            // console.log("登录成功了", res);
+            if (res.code == 1) {
+              fnShowAnimate("zoom-in", res.msg);
+            } else {
+              var data = JSON.stringify(res.data);
+              localStorage.setItem("userInfo", data || null);
+              window.location.href = "index.html";
+            }
+          },
+        });
+      });
+
+      $("#ploutoRegister").click(function () {
+        if (userInfo == null) {
+          window.location.href = "register.html";
+        }
+      });
+      // 动画显示https://www.jq22.com/jquery-info24247
+      function fnShowAnimate(animate, content) {
+        tzAlert.open({
+          position: _tempPosition,
+          animate: animate,
+          maskClose: true,
+          width: "300px",
+          mask: {
+            use: true,
+            background: "rgba(0,0,0,.6)",
+          },
+          cancel: {
+            use: false,
+          },
+          confirm: {
+            use: false,
+          },
+          content: {
+            html: content,
+          },
+        });
+      }
+    })(jQuery);
+  </script>
 </html>

@@ -59,6 +59,7 @@
 				<li><a href="#home1-services-area">Features</a></li>
 				<li><a href="#faq-area">FAQ</a></li>
 				<li class="loginIn"    class="top-btn"><a id="userName" href="javascript:;">Login In</a></li>
+				<!-- <li    class="top-btn"><a href="changePassword.html">Reset Password</a></li> -->
 			</ul>
 		</nav>
 	</header>
@@ -634,7 +635,10 @@ type="text/javascript"
 </script>
 <script>
     var userInfo = localStorage.getItem("userInfo");
+	$("#ResetPassword").click(function(){
+        window.location.href = "changePassword.html";
 
+      })
 	   $(".loginIn").click(function () {
       // var userInfo = localStorage.getItem("userInfo");
       // console.log("------>", typeof userInfo);

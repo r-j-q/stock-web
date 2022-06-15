@@ -116,38 +116,42 @@
   $(document).on("click", "#pay0", function () {
     goods_id = $("#pay0").data("id");
     price = $("#pay0").data("price");
-    $("#paypal-button-container").show();
+    // $("#paypal-button-container").show();
     // createdOrder()
     createdOrderTo(goods_id);
   });
   $(document).on("click", "#pay01", function () {
     goods_id = $("#pay01").data("id");
     price = $("#pay01").data("price");
-    $("#paypal-button-container").show();
-
+    // $("#paypal-button-container").show();
+    createdOrderTo(goods_id);
     // createdOrders(price);
   });
   $(document).on("click", "#pay10", function () {
     goods_id = $("#pay10").data("id");
     price = $("#pay10").data("price");
-    $("#paypal-button-container").show();
-
+    // $("#paypal-button-container").show();
+    createdOrderTo(goods_id);
     // createdOrders(price);
   });
   $(document).on("click", "#pay11", function () {
     goods_id = $("#pay11").data("id");
     price = $("#pay11").data("price");
-    $("#paypal-button-container").show();
-
+    // $("#paypal-button-container").show();
+    createdOrderTo(goods_id);
     // createdOrders(price);
   });
   $(document).on("click", "#pay12", function () {
     goods_id = $("#pay12").data("id");
     price = $("#pay12").data("price");
-    $("#paypal-button-container").show();
-
+    // $("#paypal-button-container").show();
+    createdOrderTo(goods_id);
     // createdOrders(price);
   });
+
+  
+
+
   // 后端接口逻辑
   function createdOrderTo(goods_id) {
     var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";

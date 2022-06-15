@@ -154,7 +154,7 @@
 
     $.ajax({
       type: "get",
-      url: `${baseUrl}/user/order/create?paytype=paypal&goods_id=${goods_id}&payway=0`,
+      url: `${baseUrl}/user/order/create?paytype=paypal&goods_id=${goods_id}`,
       dataType: "json",
       headers: {
         Authorization: `Bearer ${tokens.token}`,
@@ -295,31 +295,32 @@
   }
 
 
-  // paypal
-  //   .Buttons({ 
-  //     createOrder: (data, actions) => {
-  //       return actions.order.create({
-  //         purchase_units: [
-  //           {
-  //             amount: {
-  //               value: price / 100,
-  //             },
-  //           },
-  //         ],
-  //       });
-  //     },
-  //     onApprove: (data, actions) => {
-  //       return actions.order.capture().then(function (orderData) {
-  //         console.log("=goods_id===>", goods_id);
-  //         console.log(
-  //           "Capture result====》",
-  //           orderData,
-  //           JSON.stringify(orderData, null, 2)
-  //         );
-  //         const transaction = orderData.purchase_units[0].payments.captures[0];
-  //         createdOrder(goods_id, transaction.id);
-  //       });
-  //     },
-  //   })
-  //   .render("#paypal-button-container");
+  paypal
+    .Buttons({ 
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: price / 100,
+              },
+            },
+          ],
+        });
+      },
+      onApprove: (data, actions) => {
+        return actions.order.capture().then(function (orderData) {
+          console.log("=goods_id===>", goods_id);
+          console.log(
+            "Capture result====》",
+            orderData,
+            JSON.stringify(orderData, null, 2)
+          );
+          const transaction = orderData.purchase_units[0].payments.captures[0];
+          createdOrder(goods_id, transaction.id);
+          // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+        });
+      },
+    })
+    .render("#paypal-button-container");
 })(jQuery);

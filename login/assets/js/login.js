@@ -110,7 +110,7 @@
  
 
  
-  $("#paypal-button-container").hide();
+  // $("#paypal-button-container").hide();
   var goods_id = "",
     price = 0;
   $(document).on("click", "#pay0", function () {

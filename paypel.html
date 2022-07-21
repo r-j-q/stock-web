@@ -7,19 +7,19 @@
       sizes="76x76"
       href="login/assets/img/apple-icon.png"
     />
-    <link rel="icon" type="image/png" href="login/assets/img/favicon.png" />
+    <link rel="icon" type="image/png" href="login/assets/img/ploutos.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Login</title>
-    <link href="login/other/logos.png" rel="shortcut icon" />
+    <title>pay</title>
+    <!-- <link href="login/other/logos.png" rel="shortcut icon" /> -->
 
     <meta
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
       name="viewport"
     />
-    <link
+    <!-- <link
       href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
       rel="stylesheet"
-    />
+    /> -->
     <link rel="stylesheet" href="login/assets/css/login.css" />
     <link href="login/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="login/assets/css/now-ui-kit.css?v=1.1.0" rel="stylesheet" />
@@ -30,11 +30,10 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <link
-      href="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.css"
+      href="login/assets/css/jquery.toast.css"
       rel="stylesheet"
-    />
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+    /> 
+     
 
     <style>
       .topnav-top {
@@ -119,6 +118,10 @@
         font-weight: bold;
         color: #fff;
       }
+      .page-header-image{
+        position: fixed!important;
+        top:0!important
+      }
       @media screen and (max-width: 720px) {
         .displaytop-list {
           width: 300px;
@@ -164,7 +167,7 @@
     <div class="page-header" filter-color="orange">
       <div
         class="page-header-image"
-        style="background-image: url(login/assets/img/login.jpg)"
+        style="background-image: url(assets/bjing.jpeg);position: fixed"
       ></div>
       <div class="container">
         <div class="col-md-4 content-center">
@@ -178,7 +181,8 @@
     </div>
     <footer>
 
-      <div    style="position:fixed;bottom:0;left:0;right:0;z-index: 999;">
+      <!-- <div    style="position:fixed;bottom:0;left:0;right:0;z-index: 999;"> -->
+        <div    style="background: rgba(44,44,44,.6);">
         
         <div class="container">
           <div  style="text-align: center;padding: 30px 0 60px;">
@@ -233,20 +237,22 @@
     type="text/javascript"
   ></script>
   <script
-    src="login/assets/js/login.js?v=1.1.2"
+    src="login/assets/js/login.js?v=1.1.3"
     type="text/javascript"
   ></script>
   <script
     src="login/assets/js/toast.js?v=1.1.1"
     type="text/javascript"
   ></script>
-
+  <script src="login/assets/js/jquery.min.js?v=1.1.2" ></script>
+  <script src="login/assets/js/jquery.toast.min.js?v=1.1.2" ></script>
   <script>
     $(window).on("load", function () {
-      $("#preloader").delay(350).fadeOut("slow");
-      $("body").delay(350).css({
-        overflow: "visible",
-      });
+      
+      // $("#preloader").delay(350).fadeOut("slow");
+      // $("body").delay(350).css({
+      //   overflow: "visible",
+      // });
       var userInfos = JSON.parse(localStorage.getItem("userInfo"));
       if (userInfos?.token) {
         $("#userName").text(`Welcome ${userInfos.username}`);
@@ -259,4 +265,7 @@
       }
     });
   </script>
+  <script>
+    !function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jj9lqYbuaJWdfWUh",ck:"Jj9lqYbuaJWdfWUh"});
+   </script>
 </html>

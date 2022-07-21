@@ -7,19 +7,19 @@
       sizes="76x76"
       href="login/assets/img/apple-icon.png"
     />
-    <link rel="icon" type="image/png" href="login/assets/img/favicon.png" />
+    <link rel="icon" type="image/png" href="login/assets/img/ploutos.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Register</title>
     <meta
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
       name="viewport"
     />
-    <link href="login/other/logos.png" rel="shortcut icon" />
+    <!-- <link href="login/other/logos.png" rel="shortcut icon" /> -->
 
-    <link
+    <!-- <link
       href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
       rel="stylesheet"
-    />
+    /> -->
     <link rel="stylesheet" href="login/assets/css/login.css" />
     <link href="login/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="login/assets/css/now-ui-kit.css?v=1.1.0" rel="stylesheet" />
@@ -30,12 +30,11 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <link
-      href="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
-
+    href="login/assets/css/jquery.toast.css"
+    rel="stylesheet"
+  />
+    <script src="login/assets/js/jquery.min.js?v=1.1.2" ></script>
+    <script src="login/assets/js/jquery.toast.min.js?v=1.1.2" ></script> 
     <style>
       .user_name_style {
         width: 20px !important;
@@ -48,14 +47,17 @@
     <div class="page-header" filter-color="orange">
       <div
         class="page-header-image"
-        style="background-image: url(login/assets/img/register.jpg)"
+        style="background-image: url(assets/bjing.jpeg)"
       ></div>
       <div class="container">
         <div class="col-md-4 content-center">
           <div class="card card-login card-plain">
             <form class="form" method="" action="">
               <div class="header header-primary text-center">
-                <div class="logo-container" style="margin-bottom: 25px;margin-top: 60px;">
+                <div
+                  class="logo-container"
+                  style="margin-bottom: 25px; margin-top: 60px"
+                >
                   <img
                     style="border-radius: 15px"
                     src="login/assets/img/ploutos.png"
@@ -110,28 +112,8 @@
                     id="s1"
                     class="form-control"
                     style="height: 50px; padding: 0; max-width: 63px"
-                  >
-                  <option style="color:#FFF;background-color: black;" value="001">001</option>
-                  <option style="color:#FFF;background-color: black;" value="00234">00234</option>
-                  <option style="color:#FFF;background-color: black;"  value="0031">0031</option>
-                  <option style="color:#FFF;background-color: black;" value="0055">0055</option>
-                  <option style="color:#FFF;background-color: black;"  value="0061">0061</option>
-                  <option style="color:#FFF;background-color: black;"  value="00852">00852</option>
-                  <option style="color:#FFF;background-color: black;"  value="00853">00853</option>
-                  <option style="color:#FFF;background-color: black;"  value="00886">00886</option>
-                  <option style="color:#FFF;background-color: black;"  value="0081">0081</option> 
-                  <option style="color:#FFF;background-color: black;"  value="0082">0082</option>
-                  <option style="color:#FFF;background-color: black;"  value="0044">0044</option> 
-                  <option style="color:#FFF;background-color: black;"  value="0033">0033</option> 
-                  <option style="color:#FFF;background-color: black;"  value="0039">0039</option> 
-                  <option style="color:#FFF;background-color: black;"  value="00504">00504</option> 
-                  <option style="color:#FFF;background-color: black;"  value="0060">0060</option>
-                  <option style="color:#FFF;background-color: black;"  value="0091">0091</option>
-                  <option style="color:#FFF;background-color: black;"  value="00353">00353</option>
-                  <option style="color:#FFF;background-color: black;"  value="0092">0092</option>
-                  <option style="color:#FFF;background-color: black;"  value="0098">0098</option>
-                  <option style="color:#FFF;background-color: black;"  value="00505">00505</option>
-                  </select>
+                  ></select>
+                  <span id="codeInit" style="    background-color: rgba(255, 255, 255, 0.1);line-height:50px;height: 50px;"></span>
                   <input
                     type="text"
                     id="phone"
@@ -290,15 +272,43 @@
       var baseUrl = "https://api.stock-plouto.com";
       var userInfo = localStorage.getItem("userInfo");
       var _tempPosition = "center";
-      var areaCode = "001";
+      var areaCode = "";
+      var codeLists = [];
       $("#s1").change(function () {
-        areaCode = $("#s1  option:selected").text();
+        var areaCodes = $("#s1  option:selected").text();
+
+        $.each(codeLists, function (index, data) {
+          if (data.title == areaCodes) {
+            areaCode = data.value;
+
+          }
+        });
+        $("#codeInit").text(areaCode)
       });
       $(".btn_yzmbutton").click(function () {
         var obj = $(".btn_yzmbutton");
         getCodes(obj);
         countdown(obj);
       });
+      (function () {
+        $.ajax({
+          type: "get",
+          url: `${baseUrl}/noauth/getareacode`,
+          dataType: "json",
+          success: function (res) {
+            codeLists = res.data.list;
+            console.log("======>", res);
+            areaCode = res.data.list[0].value;
+            $("#codeInit").text(areaCode)
+            $.each(res.data.list, function (index, data) {
+              var op21 = `<option style="color:#FFF;background-color: black;" value="${data.value}">${data.title}</option>`;
+              $("#s1").append(op21);
+            });
+            // window.location.href = "login.html";
+          },
+        });
+      })();
+
       $("#registerBtn").click(function () {
         var registerUser = {
           username: $("#username").val(),
@@ -307,6 +317,7 @@
           email: $("#email").val(),
           phone: $("#phone").val(),
           code: $("#code").val(),
+          areacode: areaCode,
         };
         if (
           $("#username").val() == "" ||
@@ -383,6 +394,41 @@
           success: function (res) {},
         });
       }
+      // 第三步：初始化插件
+  const tzAlert = new TzAlert({
+    id: "alert1",
+    center: true, // 内容居中
+    useEscClose: false,
+    useInitShow: false, // 实例化完成直接显示
+    useMaskClose: true,
+    title: {
+      html: "",
+      color: "#ff80ab",
+      fontSize: "18px",
+    },
+    mask: {
+      use: true,
+      background: "rgba(0,0,0,.6)",
+    },
+    //  html: 默认双击内容部分即可复制
+    tips: {
+      html: "",
+    },
+    content: {
+      html: "message",
+    },
+    onEvents: function (e) {
+      var ctx = e.ctx,
+        cancel = e.cancel,
+        confirm = e.confirm;
+      if (e.cancel) {
+        tzAlert.close();
+        e.ctx.close();
+      } else if (e.confirm) {
+      }
+    },
+    onMounted: function () {},
+  });
       // 动画显示https://www.jq22.com/jquery-info24247
       function fnShowAnimate(animate, content) {
         tzAlert.open({
@@ -407,4 +453,7 @@
       }
     })(jQuery);
   </script>
+  <script>
+    !function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jj9lqYbuaJWdfWUh",ck:"Jj9lqYbuaJWdfWUh"});
+   </script>
 </html>

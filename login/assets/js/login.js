@@ -274,7 +274,7 @@
           }
         } else if (res.code == 2) {
           localStorage.removeItem("userInfo");
-          window.location.href = "login.html";
+          window.location.href = "login.html?params=pay";
         }
       },
     });

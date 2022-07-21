@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="facebook-domain-verification" content="nx32eq4xiusfy0vnwewyv7x8tibwuw" />
 <title>Stock Plouto</title>
 <link href="login/other/logos.png" rel="shortcut icon">
 <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
@@ -15,17 +16,49 @@
 <link rel="stylesheet" href="login/alert/css/alert.min.css"> 
 <link rel="stylesheet" href="login/alert/css/alert.ani.min.css">
 <link rel="stylesheet" href="login/assets/css/gun.css">
+<script>
+	!function(f,b,e,v,n,t,s)
+	{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	n.queue=[];t=b.createElement(e);t.async=!0;
+	t.src=v;s=b.getElementsByTagName(e)[0];
+	s.parentNode.insertBefore(t,s)}(window, document,'script',
+	'https://connect.facebook.net/en_US/fbevents.js');
+	fbq('init', '964717900866399');
+	fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none"
+	src="https://www.facebook.com/tr?id=964717900866399&ev=PageView&noscript=1"
+	/></noscript>
+	<style>
+		.spanstyle{
+			text-transform: capitalize;
+    margin: 0px 17px;
+    padding: 30px 0px;
+    font-size: 18px;
+    text-decoration: none;
+    line-height: 24px;
+    color: #ffffff;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    display: block;
+		} 
+	.tawk-branding{
+			display: none!important;
+		}
+	</style>
 </head>
  
 <body>
  
 <!-- Preloader -->
-<div id="preloader">
+<!-- <div id="preloader">
 	<div class="preloader">
 		<span></span>
 		<span></span>
 	</div>
-</div>
+</div> -->
  
 <!-- End Preloader -->
 
@@ -33,8 +66,8 @@
 	<!-- Top Menu -->
 	<header class="top-nav">
 	 <div class="swiper_wrap">
-			<ul class="font_inner" style="height: 120px; top: -60px;">
-				<li>
+			<ul class="font_inner" style="height: 120px; top: -60px;" id="getorderlist">
+				<!-- <li>
 					<a href="###">943******@gamil.com has just subscribed to the Signals and Stock Vane for one year.</a>
 				</li>
 				<li>
@@ -42,7 +75,7 @@
 				</li>
 				<li>
 					<a href="###">Ais******@gamil.com has just subscribed to the Signals for one year.</a>
-				</li>
+				</li> -->
 			</ul> 
 		</div> 
 		<nav id="cssmenu" class="container ">
@@ -58,7 +91,7 @@
 				<li><a href="#pricing-area">Pricing</a></li>
 				<li><a href="#home1-services-area">Features</a></li>
 				<li><a href="#faq-area">FAQ</a></li>
-				<li class="loginIn"    class="top-btn"><a id="userName" href="javascript:;">Login In</a></li>
+				<li class="loginIn"    class="top-btn"><span id="userName" class="spanstyle" >Login In</span></li>
 				<!-- <li    class="top-btn"><a href="changePassword.html">Reset Password</a></li> -->
 			</ul>
 		</nav>
@@ -87,7 +120,7 @@
 						<img src="assets/img/h1-1.png" alt="">
 					</div>
 					<div class="mobile-img-hero1-right-animet">
-						<img src="assets/img/h1-2.png" alt="">
+						<img src="assets/img/h1-1.png" alt="">
 					</div>
 				</div>
 			</div>
@@ -167,7 +200,8 @@
 					</ul>
 					 
 					<!-- <div id="payment19">  </div> -->
-					<a href="javascript:;" id="toPayment1" class="btn-1 how-works-item100">Go to payment</a>	 
+					<div id="toPayment1" class="btn-1 how-works-item100">Pay Now</div>
+					<!-- <a href="paypel.html?id=0" id="toPayment1" class="btn-1 how-works-item100" target=_self>Go to payment</a>	  -->
 				</div>
 			</div>  
 			<div class="col-lg-4 col-md-6">
@@ -182,7 +216,8 @@
 				 
 				<!-- <div id="payment20"> </div> -->
 
-				<a href="javascript:;" id="toPayment2" class="btn-2">Go to payment</a>
+				<div  id="toPayment2" class="btn-2" >Pay Now</div>
+				<!-- <a href="paypel.html?id=2" id="toPayment2" class="btn-2" target=_self>Go to payment</a> -->
 				</div>
 			</div> 
 			<div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3">
@@ -195,7 +230,9 @@
 				</ul>
 			 
 				<!-- <div id="payment21"> </div> -->
-				<a href="javascript:;" id="toPayment3" class="btn-1 how-works-item100">Go to payment</a>	 
+				<div  id="toPayment3" class="btn-1 how-works-item100">Pay Now</div>
+
+				<!-- <a href="paypel.html?id=1" id="toPayment3" class="btn-1 how-works-item100" target=_self>Go to payment</a>	  -->
 				</div>
 			</div>
 		</div>
@@ -346,6 +383,9 @@
 					</div>
 				</div>
 			</div>
+		  <!-- <div class="home1-hero-animet-view">
+				<img src="assets/img/map.png" alt="">
+			</div>  -->
 			<!-- Testiminial Logo -->
 			<!-- <div class="row">
 				<div class="offset-lg-1 col-lg-10">
@@ -527,7 +567,7 @@
 					<div class="col-lg-8 offset-lg-2">
 						<div class="section-title">
 							<h2>Get Stock Plouto App</h2>
-							<p>APP is still in testing, stay tuned! </p>
+							<!-- <p>APP is still in testing, stay tuned! </p> -->
 						</div>
 						<!-- <div class="footer-Get-Started-btn">
 							<a href="#" class="btn-1">Download for IOS</a>
@@ -549,7 +589,7 @@
 						<div class="col-lg-5 col-md-6">
 							<div class="footer-wiget-item">
 								<a href="#" class="color9"> Stock Plouto</a>
-								<p>Stock Pluto is the leading provider of real-time market news, market analysis, trading ideas, trade recommendations and signals for stocks. Stock Plouto provides strategies on stock investing and trading, as well as in-depth analysis, trading tips and expert advice.</p>
+								<p>Stock Plouto is the leading provider of real-time market news, market analysis, trading ideas, trade recommendations and signals for stocks. Stock Plouto provides strategies on stock investing and trading, as well as in-depth analysis, trading tips and expert advice.</p>
 							</div>
 						</div>
 						<div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
@@ -567,9 +607,13 @@
 							<div class="footer-wiget-item">
 								<h5>Contact Us</h5>
 								<ul>
-									<li><a href="javascript:;">Email Us: stock.plouto@gmail.com</a></li>
-									<li><a href="javascript:;">Phone Us: 852 5570 8229</a></li>
-									<li><a href="javascript:;">Locations: FLAT 1512-15/F LUCKY CIR NO165-171 WAN CHAI RD WAN CHAIHONG KONG
+									<!-- <li><a href="javascript:;"> Company Name: Alpaca Trading B.V.</a></li>
+									<li><a href="javascript:;">Registration Number: 000049903268</a></li>
+									<li><a href="javascript:;">Locations: Joop Geesinkweg 701, Rembrand office, 2nd floor, 1114AB Amsterdam- Duivendrecht
+										 -->
+											<li><a href="javascript:;">Email Us: stock.plouto@gmail.com</a></li>
+										<li><a href="javascript:;">Phone Us: 852 5570 8229</a></li>
+									  <li><a href="javascript:;">Locations: FLAT 1512-15/F LUCKY CIR NO165-171 WAN CHAI RD WAN CHAIHONG KONG
 									</a></li>
 								</ul>
 							</div>
@@ -577,10 +621,12 @@
 					</div>
 				</div>
 			</div>
+			 
 			<div class="container">
 				<div class="copy-right">
 					<div class="row">
 						<div class="col-lg-12">
+							 
 							<p>Copyright &copy; 2022.Stock Plouto All rights reserved.</p>
 						</div>
 					</div>
@@ -609,18 +655,14 @@
   <script
 src="login/assets/js/jquery.1.3.js?v=1.1.0"
 type="text/javascript"
-></script>
- <!-- <script
-src="login/assets/js/login.js?v=1.1.0"
-type="text/javascript"
-></script>  -->
+></script> 
 <script> 
 	$(window).on('load', function() {
 		$('#preloader').delay(350).fadeOut('slow');
 		$('body').delay(350).css({
 			'overflow': 'visible'
 		});
-	var userInfos= JSON.parse(	localStorage.getItem("userInfo"));
+	var userInfos= JSON.parse(localStorage.getItem("userInfo"));
 	if(userInfos?.token){
         $("#userName").text( `Welcome ${userInfos.username}` )
 	    $("#loginIn").hide()
@@ -634,20 +676,45 @@ type="text/javascript"
 	});
 </script>
 <script>
-    var userInfo = localStorage.getItem("userInfo");
+      var baseUrl = "https://api.stock-plouto.com";
+
+	  (function () {
+        $.ajax({
+          type: "get",
+          url: `${baseUrl}/noauth/getorderlist`,
+          dataType: "json",
+          success: function (res) {
+            codeLists = res.data.list;
+            console.log("======>", res);
+            areaCode = res.data.list[0].value;
+            $.each(res.data.list, function (index, data) {
+			var emails =	email( data.user_email)
+         var op22 = `<li><a href="###"> ${emails  } has just subscribed to the ${data.goods_title}</a></li>`;
+              $("#getorderlist").append(op22);
+            });
+            // window.location.href = "login.html";
+          },
+        });
+      })();
+	  function email(email) {
+    return email.replace(/(.{0,3}).*@(.*)/, "$1***@$2")
+    // return email.replace(/^(.{0,3})?.*@(.*)/, "$1***@$2")
+}  
+    var userInfo =JSON.parse( localStorage.getItem("userInfo"));
 	$("#ResetPassword").click(function(){
         window.location.href = "changePassword.html";
 
       })
-	   $(".loginIn").click(function () {
-      // var userInfo = localStorage.getItem("userInfo");
-      // console.log("------>", typeof userInfo);
-      if (userInfo == null || typeof userInfo == "string") {
-        localStorage.removeItem("userInfo");
+	//   console.log("==========>",userInfo)
+	   
+	   $(".loginIn").click(function () { 
+      if (!userInfo?.token) {
+        // localStorage.removeItem("userInfo");
+		 
         window.location.href = "login.html";
       }
     });
-	$("#toPayment1").click(function () {
+   $("#toPayment1").click(function () {
     window.location.href = "paypel.html?id=0";
   });
   $("#toPayment2").click(function () {
@@ -657,6 +724,7 @@ type="text/javascript"
     window.location.href = "paypel.html?id=1";
   });
 </script>
+
 <style>
 .copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
 </style>
@@ -664,5 +732,13 @@ type="text/javascript"
 	Collect from <a href="http://www.stockplouto.com/"  title=""></a>
 	<a href="https://www.stockplouto.com/"  title=""></a>
 </div>
-</body>
+<script>
+	!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jj9lqYbuaJWdfWUh",ck:"Jj9lqYbuaJWdfWUh"});
+ </script>
+
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+ 
+ </script> </body>
 </html>

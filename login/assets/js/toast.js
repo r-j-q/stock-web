@@ -1,26 +1,26 @@
 'use strict';
 (function($,window){ 
 	//动态加载animate
-	var loadStyles = function(url) {
-		var hasSameStyle = false;
-		var links = $('link');
-		for(var i = 0;i<links.length;i++){
-			if(links.eq(i).attr('href') == url){
-				hasSameStyle = true;
-				return
-			}
-		}
+	// var loadStyles = function(url) {
+	// 	var hasSameStyle = false;
+	// 	var links = $('link');
+	// 	for(var i = 0;i<links.length;i++){
+	// 		if(links.eq(i).attr('href') == url){
+	// 			hasSameStyle = true;
+	// 			return
+	// 		}
+	// 	}
 
-		if(!hasSameStyle){
-			var link = document.createElement("link");
-			link.type = "text/css";
-			link.rel = "stylesheet";
-			link.href = url;
-			document.getElementsByTagName("head")[0].appendChild(link);
-		}
-    }
+	// 	if(!hasSameStyle){
+	// 		var link = document.createElement("link");
+	// 		link.type = "text/css";
+	// 		link.rel = "stylesheet";
+	// 		link.href = url;
+	// 		document.getElementsByTagName("head")[0].appendChild(link);
+	// 	}
+    // }
 
-    loadStyles('css/animate.css');
+    // loadStyles('css/animate.css');
 
 	//显示提示信息    toast
 	$.fn.toast = function(options){

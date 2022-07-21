@@ -16,10 +16,10 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
       name="viewport"
     />
-    <link
+    <!-- <link
       href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
       rel="stylesheet"
-    />
+    /> -->
     <link rel="stylesheet" href="login/assets/css/login.css" />
     <link href="login/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="login/assets/css/now-ui-kit.css?v=1.1.0" rel="stylesheet" />
@@ -29,19 +29,17 @@
     <link rel="canonical" href="" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-    <link
-      href="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
-  <style>
-    .row-row{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
-  </style>
+
+    <link href="login/assets/css/jquery.toast.css" rel="stylesheet" />
+    <script src="login/assets/js/jquery.min.js?v=1.1.2"></script>
+    <script src="login/assets/js/jquery.toast.min.js?v=1.1.2"></script>
+    <style>
+      .row-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+    </style>
   </head>
 
   <body class="login-page sidebar-collapse">
@@ -170,7 +168,7 @@
     <div class="page-header" filter-color="orange">
       <div
         class="page-header-image"
-        style="background-image: url(login/assets/img/login.jpg)"
+        style="background-image: url(assets/bjing.jpeg)"
       ></div>
       <div class="container">
         <div class="col-md-4 content-center">
@@ -224,14 +222,18 @@
                 </h6>
               </div>
               <div class="pull-right row-row">
-                <h6  >
+                <h6>
                   <a href="javascript:;" id="ResetPassword" class="link"
                     >Reset Password</a
                   >
                 </h6>
                 &nbsp;&nbsp;&nbsp;
                 <h6>
-                  <a href="javascript:;" id="ploutoRegister" class="link"
+                  <a
+                    href="javascript:;"
+                    id="ploutoRegister"
+                    class="link"
+                    style="color: #1add97"
                     >Create Account</a
                   >
                 </h6>
@@ -303,15 +305,105 @@
   ></script>
 
   <script>
+    function urlhtml(params) {
+      //获取url地址
+
+      var ts_href = window.location.href;
+
+      var ts_maintext = "";
+
+      if (params == 1) {
+        //获取地址最后一个“/”的下标
+
+        var ts_indexof = ts_href.lastIndexOf("/");
+
+        //获取地址“/”之后的的内容
+
+        var ts_indextext = ts_href.substring(ts_indexof + 1);
+
+        //获取地址“.html”的下标
+
+        var ts_htmlbeforetext = ts_indextext.indexOf(".html");
+
+        //获取 “/”到".html"之间的内容
+
+        ts_maintext = ts_indextext.substring(0, ts_htmlbeforetext);
+      } else if (params == 2) {
+        //获取地址“/”的下标
+
+        var ts_indexof = ts_href.lastIndexOf("/");
+
+        //获取地址“/”之后的的内容
+
+        var ts_indextext = ts_href.substring(ts_indexof + 1);
+
+        ts_maintext = ts_indextext;
+      } else if (params == 3) {
+        //获取地址中倒数二个“/”下标的位置的之后的内容
+
+        var urlparents = ts_href.substr(
+          ts_href.lastIndexOf("/", ts_href.lastIndexOf("/") - 1) + 1
+        );
+
+        ts_maintext = urlparents;
+      } else if (params == 4) {
+        //获取地址中倒数二个“/”的下标之后的内容
+
+        var urlparents = ts_href.substr(
+          ts_href.lastIndexOf("/", ts_href.lastIndexOf("/") - 1) + 1
+        );
+
+        //取到倒数二个“/”的下标的位置和.html之间的内容
+
+        var beforehtml = urlparents.indexOf(".html");
+
+        if (beforehtml == -1) {
+          ts_maintext = urlparents;
+        } else {
+          ts_maintext = urlparents.substring(0, beforehtml);
+        }
+      } else {
+        var urlparents = ts_href.substr(
+          ts_href.lastIndexOf("/", ts_href.lastIndexOf("/") - 1) + 1
+        );
+
+        var beforehtml = urlparents.indexOf(".html");
+
+        if (beforehtml == -1) {
+          ts_maintext = urlparents;
+        } else {
+          ts_maintext = urlparents.substring(0, beforehtml);
+        }
+      }
+
+      return ts_maintext;
+    }
+
+
+    function getUrlParams(key) {
+	var url = window.location.search.substr(1);
+	if (url == '') {
+		return false;
+	}
+	var paramsArr = url.split('&');
+	for (var i = 0; i < paramsArr.length; i++) {
+		var combina = paramsArr[i].split("=");
+		if (combina[0] == key) {
+			return combina[1];
+		}
+	}
+	return false;
+}
+
+    // var sss = urlhtml(2); 
     (function ($) {
-      var baseUrl = "https://api.stock-plouto.com";
-      // var baseUrl =   "http://192.168.1.20:8080"
+      // var baseUrl = "https://api.stock-plouto.com";
+      var baseUrl =   "http://192.168.1.18:8080"
 
       var userInfo = localStorage.getItem("userInfo");
-      $("#ResetPassword").click(function(){
+      $("#ResetPassword").click(function () {
         window.location.href = "changePassword.html";
-
-      })
+      });
       $("#loginBtn").click(function () {
         if ($("#username").val() == "" || $("#password").val() == "") {
           fnShowAnimate("zoom-in", "Incorrect information");
@@ -335,7 +427,12 @@
             } else {
               var data = JSON.stringify(res.data);
               localStorage.setItem("userInfo", data || null);
-              window.location.href = "index.html";
+              if(getUrlParams("params") == "pay"){
+                window.location =document.referrer
+              } else{
+                window.location.href = "index.html#pricing-area";
+              }
+              
             }
           },
         });
@@ -348,41 +445,41 @@
       });
       let _tempPosition = "center";
 
-  // 第三步：初始化插件
-  const tzAlert = new TzAlert({
-    id: "alert1",
-    center: true, // 内容居中
-    useEscClose: false,
-    useInitShow: false, // 实例化完成直接显示
-    useMaskClose: true,
-    title: {
-      html: "",
-      color: "#ff80ab",
-      fontSize: "18px",
-    },
-    mask: {
-      use: true,
-      background: "rgba(0,0,0,.6)",
-    },
-    //  html: 默认双击内容部分即可复制
-    tips: {
-      html: "",
-    },
-    content: {
-      html: "message",
-    },
-    onEvents: function (e) {
-      var ctx = e.ctx,
-        cancel = e.cancel,
-        confirm = e.confirm;
-      if (e.cancel) {
-        tzAlert.close();
-        e.ctx.close();
-      } else if (e.confirm) {
-      }
-    },
-    onMounted: function () {},
-  });
+      // 第三步：初始化插件
+      const tzAlert = new TzAlert({
+        id: "alert1",
+        center: true, // 内容居中
+        useEscClose: false,
+        useInitShow: false, // 实例化完成直接显示
+        useMaskClose: true,
+        title: {
+          html: "",
+          color: "#ff80ab",
+          fontSize: "18px",
+        },
+        mask: {
+          use: true,
+          background: "rgba(0,0,0,.6)",
+        },
+        //  html: 默认双击内容部分即可复制
+        tips: {
+          html: "",
+        },
+        content: {
+          html: "message",
+        },
+        onEvents: function (e) {
+          var ctx = e.ctx,
+            cancel = e.cancel,
+            confirm = e.confirm;
+          if (e.cancel) {
+            tzAlert.close();
+            e.ctx.close();
+          } else if (e.confirm) {
+          }
+        },
+        onMounted: function () {},
+      });
 
       // 动画显示https://www.jq22.com/jquery-info24247
       function fnShowAnimate(animate, content) {
@@ -407,5 +504,32 @@
         });
       }
     })(jQuery);
+  </script>
+  <script>
+    !(function (p) {
+      "use strict";
+      !(function (t) {
+        var s = window,
+          e = document,
+          i = p,
+          c = "".concat(
+            "https:" === e.location.protocol ? "https://" : "http://",
+            "sdk.51.la/js-sdk-pro.min.js"
+          ),
+          n = e.createElement("script"),
+          r = e.getElementsByTagName("script")[0];
+        (n.type = "text/javascript"),
+          n.setAttribute("charset", "UTF-8"),
+          (n.async = !0),
+          (n.src = c),
+          (n.id = "LA_COLLECT"),
+          (i.d = n);
+        var o = function () {
+          s.LA.ids.push(i);
+        };
+        s.LA ? s.LA.ids && o() : ((s.LA = p), (s.LA.ids = []), o()),
+          r.parentNode.insertBefore(n, r);
+      })();
+    })({ id: "Jj9lqYbuaJWdfWUh", ck: "Jj9lqYbuaJWdfWUh" });
   </script>
 </html>

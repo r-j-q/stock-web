@@ -397,8 +397,8 @@
 
     // var sss = urlhtml(2); 
     (function ($) {
-      // var baseUrl = "https://api.stock-plouto.com";
-      var baseUrl =   "http://192.168.1.18:8080"
+      var baseUrl = "https://api.stock-plouto.com";
+      // var baseUrl =   "http://192.168.1.24:8080"
 
       var userInfo = localStorage.getItem("userInfo");
       $("#ResetPassword").click(function () {
@@ -427,7 +427,7 @@
             } else {
               var data = JSON.stringify(res.data);
               localStorage.setItem("userInfo", data || null);
-              if(getUrlParams("params") == "pay"){
+              if(getUrlParams("params") == "pay" || getUrlParams("customerService") == "us" ){
                 window.location =document.referrer
               } else{
                 window.location.href = "index.html#pricing-area";

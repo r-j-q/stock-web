@@ -1,31 +1,126 @@
 (function ($) {
   "use strict";
-
   var baseUrl = "https://api.stock-plouto.com";
+  var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
+  // const stripe = Stripe("pk_test_51L8IpsIzNzEUKhl8gMaHzwlkHlFW69ShIbjRVASnUjkZUDyVBb5NX9hzrnRP8rAo5x3F5ILLOl74nsusyTB3FBzf00bzY656Es");
+  
+  //下面是正式环境
+  const stripe = Stripe("pk_live_51L8IpsIzNzEUKhl8uXHCShyfEXTUAcetBsKbaG690FCXWGcBlFWoxbRdqsKjvKjh2k1WSkRKXYhRl3iZVqLjwZSI00fmzBBSTm");
+  const items = [{ id: "prod_LxQP3nkuvcykMZ" }];
+ 
+ let elements;
+ 
+//  initialize();
+//  checkStatus();
+ 
+//  document
+//    .querySelector("#payment-form")
+//    .addEventListener("submit", handleSubmit);
+  
+ async function initialize(goods_id) {
+  // http://192.168.1.24:8080/noauth/create-payment-intent?id=1
+  //  const response = await fetch("http://192.168.1.24:8080/user/order/create?paytype=stripe&goods_id=3&payway=0", {
+    const response = await fetch(`${baseUrl}/user/order/create?paytype=stripe&goods_id=${goods_id}&payway=0`, {
+     method: "get",
+     headers: { "Content-Type": "application/json" ,
+     Authorization: `Bearer ${tokens.token}`,
+    
+    },
+    //  body: JSON.stringify({ items }),
+   }) 
+   const { clientSecret } = await response.json();
+ 
+   const appearance = {
+     theme: 'stripe',
+   };
+   console.log("====>",clientSecret)
+   elements = stripe.elements({ appearance, clientSecret });
+ 
+   const paymentElement = elements.create("payment");
+   paymentElement.mount("#payment-element");
+ }
+ 
+ async function handleSubmit(e) {
+   e.preventDefault();
+   setLoading(true);
+ 
+   const { error } = await stripe.confirmPayment({
+     elements,
+     confirmParams: { 
+       return_url: `${baseUrl}/pay/callbackstripe`,
+     },
+   });
+  
+   if (error.type === "card_error" || error.type === "validation_error") {
+     showMessage(error.message);
+   } else {
+     showMessage("An unexpected error occurred.");
+   }
+ 
+   setLoading(false);
+ }
+  
+ async function checkStatus() {
+   const clientSecret = new URLSearchParams(window.location.search).get(
+     "payment_intent_client_secret"
+   );
+ 
+   if (!clientSecret) {
+     return;
+   }
+ 
+   const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
+ 
+   switch (paymentIntent.status) {
+     case "succeeded":
+       showMessage("Payment succeeded!");
+       break;
+     case "processing":
+       showMessage("Your payment is processing.");
+       break;
+     case "requires_payment_method":
+       showMessage("Your payment was not successful, please try again.");
+       break;
+     default:
+       showMessage("Something went wrong.");
+       break;
+   }
+ }
+  
+ 
+ function showMessage(messageText) {
+   const messageContainer = document.querySelector("#payment-message");
+ 
+   messageContainer.classList.remove("hidden");
+   messageContainer.textContent = messageText;
+ 
+   setTimeout(function () {
+     messageContainer.classList.add("hidden");
+     messageText.textContent = "";
+   }, 4000);
+ }
+  
+ function setLoading(isLoading) {
+   if (isLoading) { 
+     document.querySelector("#submit").disabled = true;
+     document.querySelector("#spinner").classList.remove("hidden");
+     document.querySelector("#button-text").classList.add("hidden");
+   } else {
+     document.querySelector("#submit").disabled = false;
+     document.querySelector("#spinner").classList.add("hidden");
+     document.querySelector("#button-text").classList.remove("hidden");
+   }
+ }
+  // stripe 支付模块
+
   // var baseUrl = "http://192.168.1.20:8080";
   var areaCode = "001";
   $(document).ready(function () {
     var userInfo = localStorage.getItem("userInfo");
     if (userInfo == null) {
       // $(".loginIn").show()
-    }
-
-    // $(".loginIn").click(function () {
-    //   // var userInfo = localStorage.getItem("userInfo");
-    //   // console.log("------>", typeof userInfo);
-    //   if (userInfo == null || typeof userInfo == "string") {
-    //     localStorage.removeItem("userInfo");
-    //     window.location.href = "login.html";
-    //   }
-    // });
-
-    // $("#ploutoRegister").click(function () {
-    //   if (userInfo == null) {
-    //     window.location.href = "register.html";
-    //   }
-    // });
+    } 
   });
-   
 
   let _tempPosition = "center";
 
@@ -65,7 +160,6 @@
     onMounted: function () {},
   });
 
- 
   //弹窗 https://www.jq22.com/jquery-info24247
   function showMsg(text, icon, hideAfter) {
     if (heading == undefined) {
@@ -103,71 +197,117 @@
       },
     });
   }
- 
 
-  
-
- 
-
- 
   // $("#paypal-button-container").hide();
   var goods_id = "",
-    price = 0;
+    price = 0,
+    payTypes = "#pay0";
   $(document).on("click", "#pay0", function () {
-    goods_id = $("#pay0").data("id");
-    price = $("#pay0").data("price");
-    // $("#paypal-button-container").show();
-    // createdOrder()
-    createdOrderTo(goods_id);
+    // 弹出弹窗，在弹出中选择支付方式
+    payTypes = "#pay0";
+    popupFunction();
   });
+
+  // $(document).on("click", "#pay-paypel", function () {
+  //   goods_id = $(payTypes).data("id");
+  //   price = $(payTypes).data("price");
+  //    createdOrderTo(goods_id);
+  // });
+
   $(document).on("click", "#pay01", function () {
-    goods_id = $("#pay01").data("id");
-    price = $("#pay01").data("price");
-    // $("#paypal-button-container").show();
-    createdOrderTo(goods_id);
-    // createdOrders(price);
+    payTypes = "#pay01";
+    popupFunction();
   });
+  // $(document).on("click", "#pay-paypel", function () {
+  //   goods_id = $(payTypes).data("id");
+  //   price = $(payTypes).data("price");
+  //    createdOrderTo(goods_id);
+  // });
+
   $(document).on("click", "#pay10", function () {
-    goods_id = $("#pay10").data("id");
-    price = $("#pay10").data("price");
-    // $("#paypal-button-container").show();
-    createdOrderTo(goods_id);
-    // createdOrders(price);
+    payTypes = "#pay10";
+    popupFunction();
   });
+
+  // $(document).on("click", "#pay-paypel", function () {
+  //   goods_id = $(payTypes).data("id");
+  //   price = $(payTypes).data("price");
+  //   createdOrderTo(goods_id);
+  // });
+
   $(document).on("click", "#pay11", function () {
-    goods_id = $("#pay11").data("id");
-    price = $("#pay11").data("price");
-    // $("#paypal-button-container").show();
-    createdOrderTo(goods_id);
-    // createdOrders(price);
+    payTypes = "#pay11";
+    popupFunction();
   });
+
+  // $(document).on("click", "#pay-paypel", function () {
+  //   goods_id = $(payTypes).data("id");
+  //   price = $(payTypes).data("price");
+  //   createdOrderTo(goods_id);
+  // });
+
   $(document).on("click", "#pay12", function () {
-    goods_id = $("#pay12").data("id");
-    price = $("#pay12").data("price");
-    // $("#paypal-button-container").show();
-    createdOrderTo(goods_id);
-    // createdOrders(price);
+    payTypes = "#pay12";
+    popupFunction();
   });
 
-  
+  $(document).on("click", "#pay-paypel", function () {
+    goods_id = $(payTypes).data("id");
+    price = $(payTypes).data("price"); 
+    // var paytype="paypel";
+    var paytype = "paypal"; 
+    createdOrderTo(goods_id, paytype);
+  });
+  $(document).on("click", "#pay-stripe", function () {
+    goods_id = $(payTypes).data("id");
+    price = $(payTypes).data("price");
+      
+    $(".please-payment-method").hide()
+    $("#pay-paypel").hide()
+    $("#pay-stripe").hide() 
+    $("#payment-form").show()
+    initialize(goods_id) ;
+    checkStatus();
+    document
+      .querySelector("#payment-form")
+      .addEventListener("submit", handleSubmit);
+  });
 
+  function popupFunction() {
+    $("#item1").popup({
+      time: 1000,
+      classAnimateShow: "slideInUp",
+      classAnimateHide: "fadeOut",
+      onPopupClose: function e() {
+        console.log('0')
+        $(".please-payment-method").show()
+        $("#pay-paypel").show()
+        $("#payment-form").show()
+        $("#pay-stripe").show()
+      },
+      onPopupInit: function e() {
+        console.log('1')
+        $("#payment-form").hide()
+      },
+    });
+  }
 
   // 后端接口逻辑
-  function createdOrderTo(goods_id) {
+  function createdOrderTo(goods_id, paytype) {
     var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
 
     $.ajax({
       type: "get",
-      url: `${baseUrl}/user/order/create?paytype=paypal&goods_id=${goods_id}&payway=0`,
+      url: `${baseUrl}/user/order/create?paytype=${paytype}&goods_id=${goods_id}&payway=0`,
       dataType: "json",
       headers: {
         Authorization: `Bearer ${tokens.token}`,
       },
       success: function (res) {
         // console.log("创建订单", res);
-        if(res.code == 0){ 
-          window.location.href = res.data.pay_url 
-        } 
+        if (res.code == 0) {
+          window.location.href = res.data.pay_url;
+        }
       },
     });
   }
@@ -183,22 +323,18 @@
       },
       success: function (res) {
         // console.log("创建订单", res);
-        if(res.code == 0){ 
-          window.location.href =   "index.html"
-        } 
+        if (res.code == 0) {
+          window.location.href = "index.html";
+        }
       },
     });
   }
- 
- 
 
   // }
 
   // 支付模块
 
   function goodList(id) {
-    var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
-
     $.ajax({
       type: "get",
       url: `${baseUrl}/user/goods/list?type=${id}`,
@@ -279,7 +415,6 @@
       },
     });
   }
- 
 
   var ids = getUrlParam("id") || "no";
   if (ids == 0) {
@@ -298,9 +433,8 @@
     return null;
   }
 
-
   // paypal
-  //   .Buttons({ 
+  //   .Buttons({
   //     createOrder: (data, actions) => {
   //       return actions.order.create({
   //         purchase_units: [

@@ -1,10 +1,5 @@
-// This is a public sample test API key.
-// Don’t submit any personally identifiable information in requests made with this key.
-// Sign in to see your own test API key embedded in code samples.
-const stripe = Stripe("pk_test_51L8IpsIzNzEUKhl8gMaHzwlkHlFW69ShIbjRVASnUjkZUDyVBb5NX9hzrnRP8rAo5x3F5ILLOl74nsusyTB3FBzf00bzY656Es");
-
-// The items the customer wants to buy
-const items = [{ id: "prod_LxQP3nkuvcykMZ" }];
+ const stripe = Stripe("pk_test_51L8IpsIzNzEUKhl8gMaHzwlkHlFW69ShIbjRVASnUjkZUDyVBb5NX9hzrnRP8rAo5x3F5ILLOl74nsusyTB3FBzf00bzY656Es");
+ const items = [{ id: "prod_LxQP3nkuvcykMZ" }];
 
 let elements;
 
@@ -14,10 +9,9 @@ checkStatus();
 document
   .querySelector("#payment-form")
   .addEventListener("submit", handleSubmit);
-
-// Fetches a payment intent and captures the client secret
+ 
 async function initialize() {
-  const response = await fetch("http://192.168.1.16:8080/create-payment-intent", {
+  const response = await fetch("http://192.168.1.24:8080/user/order/create?paytype=stripe&goods_id=3&payway=0", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ items }),
@@ -27,6 +21,7 @@ async function initialize() {
   const appearance = {
     theme: 'stripe',
   };
+  console.log("====>",clientSecret)
   elements = stripe.elements({ appearance, clientSecret });
 
   const paymentElement = elements.create("payment");
@@ -39,17 +34,11 @@ async function handleSubmit(e) {
 
   const { error } = await stripe.confirmPayment({
     elements,
-    confirmParams: {
-      // Make sure to change this to your payment completion page
-      return_url: "https://stock-plouto.com/checkout.html",
+    confirmParams: { 
+      return_url: "https://192.168.1.24:8080/pay/callbackasync",
     },
   });
-
-  // This point will only be reached if there is an immediate error when
-  // confirming the payment. Otherwise, your customer will be redirected to
-  // your `return_url`. For some payment methods like iDEAL, your customer will
-  // be redirected to an intermediate site first to authorize the payment, then
-  // redirected to the `return_url`.
+ 
   if (error.type === "card_error" || error.type === "validation_error") {
     showMessage(error.message);
   } else {
@@ -58,8 +47,7 @@ async function handleSubmit(e) {
 
   setLoading(false);
 }
-
-// Fetches the payment intent status after payment submission
+ 
 async function checkStatus() {
   const clientSecret = new URLSearchParams(window.location.search).get(
     "payment_intent_client_secret"
@@ -86,8 +74,7 @@ async function checkStatus() {
       break;
   }
 }
-
-// ------- UI helpers -------
+ 
 
 function showMessage(messageText) {
   const messageContainer = document.querySelector("#payment-message");
@@ -100,11 +87,9 @@ function showMessage(messageText) {
     messageText.textContent = "";
   }, 4000);
 }
-
-// Show a spinner on payment submission
+ 
 function setLoading(isLoading) {
-  if (isLoading) {
-    // Disable the button and show a spinner
+  if (isLoading) { 
     document.querySelector("#submit").disabled = true;
     document.querySelector("#spinner").classList.remove("hidden");
     document.querySelector("#button-text").classList.add("hidden");

@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>pay</title>
     <!-- <link href="login/other/logos.png" rel="shortcut icon" /> -->
-
+    <script src="https://js.stripe.com/v3/"></script>
     <meta
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
       name="viewport"
@@ -26,14 +26,12 @@
     <link href="login/assets/css/demo.css" rel="stylesheet" />
     <link rel="stylesheet" href="login/alert/css/alert.min.css" />
     <link rel="stylesheet" href="login/alert/css/alert.ani.min.css" />
+    <link rel="stylesheet" href="assets/popup/animate.css" />
+    <link rel="stylesheet" href="assets/popup/popups.css" />
     <link rel="canonical" href="" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-    <link
-      href="login/assets/css/jquery.toast.css"
-      rel="stylesheet"
-    /> 
-     
+    <link href="login/assets/css/jquery.toast.css" rel="stylesheet" />
 
     <style>
       .topnav-top {
@@ -50,7 +48,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center; 
+        justify-content: center;
       }
       .displaytopK {
         display: flex;
@@ -101,9 +99,8 @@
         align-items: center;
         justify-content: space-around;
         list-style: none;
-        margin-bottom:0;
+        margin-bottom: 0;
         height: 90px;
-        
       }
       .navbar-nav4 li {
         padding: 0 20px;
@@ -118,9 +115,9 @@
         font-weight: bold;
         color: #fff;
       }
-      .page-header-image{
-        position: fixed!important;
-        top:0!important
+      .page-header-image {
+        position: fixed !important;
+        top: 0 !important;
       }
       @media screen and (max-width: 720px) {
         .displaytop-list {
@@ -128,16 +125,14 @@
           height: 50px;
         }
         .container-view {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-      }
-      .navbar-nav4 {
-        display: none;
-         
-        
-      }
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+        }
+        .navbar-nav4 {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -167,7 +162,7 @@
     <div class="page-header" filter-color="orange">
       <div
         class="page-header-image"
-        style="background-image: url(assets/bjing.jpeg);position: fixed"
+        style="background-image: url(assets/bjing.jpeg); position: fixed"
       ></div>
       <div class="container">
         <div class="col-md-4 content-center">
@@ -179,22 +174,61 @@
         </div>
       </div>
     </div>
-    <footer>
+    <!-- 选择支付方式 -->
+    <div id="item1" class="item item--mod">
+      <b class="item-close js-popup-close">x</b>
+      <div class="item-close-style">
+        <div class="please-payment-method">
+          Please select the payment method
+        </div>
+        <div class="paypel-style-popup" id="pay-paypel">
+          <img
+            class="paypel-style-popup-img"
+            src="assets/img/paypel.png"
+            alt=""
+            srcset=""
+          />
+          <div>Paypel</div>
+        </div>
+        <div class="paypel-style-popup" id="pay-stripe">
+          <img
+            class="paypel-style-popup-img"
+            src="assets/img/stripe.png"
+            alt=""
+            srcset=""
+          />
+          <div>Pay now Stripe</div>
+        </div>
+ 
+            <form id="payment-form">
+              <div id="payment-element"></div>
+              <button id="submit"  >
+                <div class="spinner hidden" id="spinner"></div>
+                <span id="button-text">Pay Now</span>
+              </button>
+              <div id="payment-message" class="hidden"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <footer>
       <!-- <div    style="position:fixed;bottom:0;left:0;right:0;z-index: 999;"> -->
-        <div    style="background: rgba(44,44,44,.6);">
-        
+      <div style="background: rgba(44, 44, 44, 0.6)">
         <div class="container">
-          <div  style="text-align: center;padding: 30px 0 60px;">
+          <div style="text-align: center; padding: 30px 0 60px">
             <div class="row">
               <div class="col-lg-12 fs">
-                <div class="fs">Copyright &copy; 2022.Stock Plouto All rights reserved.</div>
+                <div class="fs">
+                  Copyright &copy; 2022.Stock Plouto All rights reserved.
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      </footer>
+    </footer>
   </body>
   <style>
     .copyrights {
@@ -205,12 +239,14 @@
       overflow: hidden;
     }
   </style>
-  <script src="login/alert/js/alert.min.js"></script>
 
   <script
     src="login/assets/js/core/jquery.3.2.1.min.js"
     type="text/javascript"
   ></script>
+  <script src="login/alert/js/alert.min.js"></script>
+  <script src="assets/popup/jquery.popup.js"></script>
+
   <script
     src="login/assets/js/core/popper.min.js"
     type="text/javascript"
@@ -244,11 +280,10 @@
     src="login/assets/js/toast.js?v=1.1.1"
     type="text/javascript"
   ></script>
-  <script src="login/assets/js/jquery.min.js?v=1.1.2" ></script>
-  <script src="login/assets/js/jquery.toast.min.js?v=1.1.2" ></script>
+  <script src="login/assets/js/jquery.min.js?v=1.1.2"></script>
+  <script src="login/assets/js/jquery.toast.min.js?v=1.1.2"></script>
   <script>
     $(window).on("load", function () {
-      
       // $("#preloader").delay(350).fadeOut("slow");
       // $("body").delay(350).css({
       //   overflow: "visible",
@@ -265,7 +300,7 @@
       }
     });
   </script>
-  <script>
+  <!-- <script>
     !function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jj9lqYbuaJWdfWUh",ck:"Jj9lqYbuaJWdfWUh"});
-   </script>
+   </script> -->
 </html>

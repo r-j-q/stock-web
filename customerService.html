@@ -10,7 +10,14 @@
     <link rel="stylesheet" href="assets/css/circle-container.css" />
 
     <title>Stock Plouto</title>
-    <style></style>
+    <style>
+      #loadMoreData {
+        text-align: center;
+        color: #333;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    </style>
   </head>
 
   <body>
@@ -318,11 +325,11 @@
 
       <div class="box">
         <div class="">
-          <div class="header"></div>
+          <div class="header" id="loadMoreData"> More</div>
 
           <div class="content">
             <div class="content-list">
-              <ul class="list" id="list-id"></ul>
+              <ul class="list" id="contentList"></ul>
             </div>
 
             <div class="content-bottom">
@@ -343,6 +350,13 @@
           </div>
         </div>
       </div>
+      <!-- <embed id="wavFileId" 
+       src="./assets/11299.wav"
+       width="0"
+       height="0"
+       loop="false" 
+       autostart="false">
+</embed>  -->
     </div>
     <script
       src="login/assets/js/core/jquery.3.2.1.min.js"
@@ -350,6 +364,8 @@
     ></script>
     <script type="text/javascript">
       var listMessageData = [];
+      var listMessageDataForEach = [];
+      var loadMoreDataList=[];
       var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
       var out = document.querySelector(".out"); //获取发送按钮
       var myInput = document.querySelector(".myInput");
@@ -357,80 +373,90 @@
       var onOff = false;
       var list = document.querySelector(".list"); //获取ul
       //   var WebSocketUrl = "ws://api.stock-plouto.com:9011/ws?uid=110";
-      var WebSocketUrl = "ws://192.168.1.18:9011/ws?uid=" + tokens.ID;
+      // var WebSocketUrl = "ws://192.168.1.24:9011/ws?uid=" + tokens.ID;
+      // var WebSocketUrl = "ws://192.168.1.24:9011/ws?uid=1";
+      var WebSocketUrl = `wss://websocket.stock-plouto.com/ws?uid=${tokens.ID}&username=${tokens.username}`
+      // var WebSocketUrl = "ws://47.252.3.248:9011/ws?uid="
+
       var limitConnect = 1000000; // 断线重连次数
       var timeConnect = 0;
-      // var baseUrl = "https://api.stock-plouto.com";
-      var baseUrl = "http://192.168.1.18:8080";
+      var baseUrl = "https://api.stock-plouto.com";
+      // var baseUrl = "http://192.168.1.24:8080";
       var openSocket = true;
 
-     
       webSocketInit(WebSocketUrl);
       var ws;
-      function getHostoryMesssageList() {
+       if (!tokens?.token) {
+         window.location.href = "login.html?customerService=us";
+          
+      }
+
+       
+      $("#loadMoreData").click(function () {
+        // let lastid = listMessageData.sort((a, b) => {
+        //   return a - b;
+        // })[listMessageData.length - 1].ID;
+
+
+        let lastid = Math.min.apply(Math,  listMessageData.map(item => {
+					return item.ID
+				}))
+        getHostoryMesssageList(lastid);
+        console.log("lasid", lastid);
+      });
+      function scrollBottom(){
+        var di = document.getElementById('contentList');
+        di.scrollTop = di.scrollHeight;
+       }
+      function getHostoryMesssageList(lastid) {
+
+        
+
         $.ajax({
           type: "post",
-          url: baseUrl + "/user/wechat",
+          url: baseUrl + "/user/wechat?lastid=" + lastid,
           headers: {
             Authorization: `Bearer ${tokens.token}`,
           },
           dataType: "json",
 
           success: function (msg) {
-            if (msg.data.list.length > 0) {
-              listMessageData = msg.data.list;
-              console.log("------->", listMessageData);
-              listMessageData.forEach((item) => {
-                item.content = JSON.parse(item.content);
-              });
-            }
-            $.each(listMessageData, function (index, lists) {
-              if (lists.is_admin == 1) {
-                list.innerHTML +=
-                  "<li class='left'><img src='https://stock-plouto.com/login/assets/img/ploutos.png'/><p>" +
-                  lists.content.content +
-                  "</p></li>";
-              } else {
-                list.innerHTML +=
-                  "<li class='right'><img src='https://stock-plouto.com/login/assets/img/ploutos.png'/><p>" +
-                  lists.content.content +
-                  "</p></li>";
+            if (msg.data.list.length == 0) {
+               $("#loadMoreData").hide();
               }
-            });
+            if (msg.data.list.length > 0) {
+              listMessageData = msg.data.list.reverse();
+               
+
+              listMessageData.forEach((item) => {
+                item.content = JSON.parse(JSON.parse(item.content).content);
+              });
+              // console.log("==2listMessageData=====>",listMessageData)
+ 
+               listMessageDataForEach.unshift(...listMessageData);
+              // console.log("==3loadMoreDataList=====>",loadMoreDataList)
+              console.log("==3listMessageDataForEach=====>",listMessageDataForEach)
+
+              $.each(listMessageDataForEach, function (index, lists) {
+                if (lists.is_admin == 0) {
+                  list.innerHTML +=
+                    "<li class='right'><img src='https://stock-plouto.com/login/assets/img/ryan.jpg'/><p>" +
+                    lists.content.content +
+                    "</p></li>";
+                } else {
+                  list.innerHTML +=
+                    "<li class='left'><img src='https://stock-plouto.com/login/assets/img/ploutos.png'/><p>" +
+                    lists.content.content +
+                    "</p></li>";
+                }
+              });
+              scrollBottom()
+            }
           },
         });
       }
       // is_admin = 0时是客户给销售发的
-      getHostoryMesssageList();
-
-      // var ws = new WebSocket(WebSocketUrl);
-
-      // // 获取连接状态
-      // console.log("ws连接状态1111111：" + ws.readyState);
-      // //监听是否连接成功
-
-      // ws.onopen = function () {
-      //   console.log("ws连接状态111111111：" + ws.readyState);
-      //   //连接成功则发送一个数据
-      // };
-
-      // // 接听服务器发回的信息并处理展示
-      // ws.onmessage = function (data) {
-      //   console.log("接收到来自服务器的消息2222222：");
-      //   console.log(data);
-      //   //完成通信后关闭WebSocket连接
-      //   ws.close();
-      // };
-      // // 监听连接关闭事件
-      // ws.onclose = function () {
-      //   reconnect(WebSocketUrl);
-      //   // 监听整个过程中websocket的状态
-      //   console.log("ws连接状态333333：" + ws.readyState);
-      // };
-      // // 监听并处理error事件
-      // ws.onerror = function (error) {
-      //   console.log(error);
-      // };
+      getHostoryMesssageList(0);
 
       pic.onclick = function () {
         if (onOff) {
@@ -450,13 +476,15 @@
         if (value == "") {
           alert("Please enter content");
         } else {
-          console.log("openSocket",openSocket)
+          console.log("openSocket", openSocket);
           if (openSocket) {
-            ws.send(value);
+            ws.send(JSON.stringify({ content: value, TextType: 0 }));
             list.innerHTML +=
               "<li class='right'><img src='login/assets/img/ryan.jpg'/><p>" +
               value +
               "</p></li>";
+              scrollBottom()
+
           }
 
           myInput.blur((myInput.value = "")); //失去焦点，文本框清空
@@ -471,7 +499,6 @@
         }
       };
 
-      //socket初始化
       function webSocketInit(service) {
         ws = new WebSocket(service);
         ws.onopen = function () {
@@ -483,12 +510,16 @@
             !JSON.parse(msg.data).content.includes("新socket连接") &&
             JSON.parse(msg.data).isadmin == 1
           ) {
-            list.innerHTML +=
+           list.innerHTML +=
               "<li class='left'><img src='https://stock-plouto.com/login/assets/img/ploutos.png'/><p>" +
-              JSON.parse(msg.data).content +
+              JSON.parse(JSON.parse(msg.data).content).content +
               "</p></li>";
           }
-          console.log("销售返回信息", msg);
+          scrollBottom()
+
+          // var nodeItem=document.getElementById("#wavFileId");
+          // if(nodeItem!=null){  nodeItem.Play();}  
+          // console.log("销售返回信息", msg);
         };
         ws.onclose = function () {
           console.log("服务器已经断开");
@@ -496,14 +527,12 @@
           openSocket = false;
         };
 
-        // 重连
         function reconnect(service) {
-          // lockReconnect加锁，防止onclose、onerror两次重连
           if (limitConnect > 0) {
             limitConnect--;
             timeConnect++;
             console.log("第" + timeConnect + "次重连");
-            // 进行重连
+
             setTimeout(function () {
               webSocketInit(service);
             }, 2000);
@@ -513,13 +542,12 @@
         }
       }
 
-      // 心跳 * 回应
       setInterval(function () {
-        // websocket.send("");
-        ws = new WebSocket(WebSocketUrl);
-        if (ws.readyState === 1) {
-          // 当前为只判断一次，可循环判断。
-           ws.send("");
+        if (openSocket == false) {
+          ws = new WebSocket(WebSocketUrl);
+          if (ws.readyState === 1) {
+            ws.send("");
+          }
         }
       }, 5000);
 

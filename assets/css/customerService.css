@@ -237,7 +237,10 @@ body {
     margin-top: 0px;
   }
   .content .list{
-    height: 93vh;
+    /* height: 90vh; */
+    height: 515px;
+    background: #fff;
+    
   }
   .content-bottom .myInput{
     padding: 0;
@@ -252,4 +255,4 @@ body {
 /* #list-id li:last-child{
 margin-bottom: 130px;
 } */
-.content-list{}
+ 

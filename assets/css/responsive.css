@@ -1,6 +1,46 @@
 /* Large screens ----------- */
-
-
+.anima{
+    width: 151rpx;
+    height: 153rpx;
+    background: url(https://4bd2d4613.png) no-repeat 0 0;
+    background-size: 100% 100%;
+    animation: firstdiv 2s linear 2s infinite alternate;
+ }
+ @keyframes firstdiv{
+    0%{
+       transform: scale(1);
+    }
+    25%{
+       transform: scale(0.9);
+    }
+    50%{
+       transform: scale(0.8);
+    }
+    75%{
+       transform: scale(0.9);
+    }
+    100%{
+       transform: scale(1);
+    }
+ } 
+ .outIn-style{
+    border-radius:10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+ }
+.contans-style{
+    position: fixed;
+    right: 0;
+    bottom:100px;
+    z-index: 999;
+    border-radius: 10px;
+    overflow: hidden;
+}
 /* // Extra large devices (large desktops, 1200px and up) */
 
 @media (min-width: 1200px) {}

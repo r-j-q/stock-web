@@ -1,6 +1,8 @@
 (function ($) {
   "use strict";
   var baseUrl = "https://api.stock-plouto.com";
+  // var baseUrl =   "http://192.168.1.11:8080"
+
   var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
   // const stripe = Stripe("pk_test_51L8IpsIzNzEUKhl8gMaHzwlkHlFW69ShIbjRVASnUjkZUDyVBb5NX9hzrnRP8rAo5x3F5ILLOl74nsusyTB3FBzf00bzY656Es");
   
@@ -18,6 +20,7 @@
 //    .addEventListener("submit", handleSubmit);
   
  async function initialize(goods_id) {
+  console.log("==goods_id===>",goods_id)
   // http://192.168.1.24:8080/noauth/create-payment-intent?id=1
   //  const response = await fetch("http://192.168.1.24:8080/user/order/create?paytype=stripe&goods_id=3&payway=0", {
     const response = await fetch(`${baseUrl}/user/order/create?paytype=stripe&goods_id=${goods_id}&payway=0`, {
@@ -251,6 +254,16 @@
     popupFunction();
   });
 
+  $(document).on("click", "#pay67770", function () {
+    payTypes = "#pay67770";
+    popupFunction();
+  });
+  $(document).on("click", "#pay166770", function () {
+    payTypes = "#pay166770";
+    popupFunction();
+  });
+
+
   $(document).on("click", "#pay-paypel", function () {
     goods_id = $(payTypes).data("id");
     price = $(payTypes).data("price"); 
@@ -407,6 +420,46 @@
 
               $("#payList").append(op21);
             });
+          }else if (id == 3) {
+            $.each(res.data.list, function (index, data) {
+              var type = "M";
+              if (data.time == 10) {
+                type = "M";
+              } else if (data.time == 13) {
+                type = "Q";
+              } else if (data.time == 20) {
+                type = "Y";
+              } else if (data.time == 7) {
+                type = "Week";
+              }
+              var op23 = `<div class="displaytop-list displaytopK" data-id="${
+                data.ID
+              }"  data-price="${data.cur_price}"  id="pay6777${index}"><div>${
+                data.title
+              }</div><div>$${data.cur_price / 100} /${type}</div></div>`;
+
+              $("#payList").append(op23);
+            });
+          }else if (id == 4) {
+            $.each(res.data.list, function (index, data) {
+              var type = "M";
+              if (data.time == 10) {
+                type = "M";
+              } else if (data.time == 13) {
+                type = "Q";
+              } else if (data.time == 20) {
+                type = "Y";
+              } else if (data.time == 7) {
+                type = "Week";
+              }
+              var op24 = `<div class="displaytop-list displaytopK" data-id="${
+                data.ID
+              }"  data-price="${data.cur_price}"  id="pay16677${index}"><div>${
+                data.title
+              }</div><div>$${data.cur_price / 100} /${type}</div></div>`;
+
+              $("#payList").append(op24);
+            });
           }
         } else if (res.code == 2) {
           localStorage.removeItem("userInfo");
@@ -423,6 +476,10 @@
     goodList(2);
   } else if (ids == 1) {
     goodList(1);
+  }else if (ids == 3) {
+    goodList(3);
+  }else if (ids == 4) {
+    goodList(4);
   }
 
   function getUrlParam(name) {

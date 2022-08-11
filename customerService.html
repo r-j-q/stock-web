@@ -401,7 +401,8 @@
       var listMessageData = [];
       var listMessageDataForEach = [];
       var loadMoreDataList = [];
-      var tokens = JSON.parse(localStorage.getItem("userInfo")) || "";
+      
+    
       var out = document.querySelector(".out"); //获取发送按钮
       var myInput = document.querySelector(".myInput");
       var pic = document.getElementById("pic"); //获取图片
@@ -411,23 +412,28 @@
       //   var WebSocketUrl = "ws://api.stock-plouto.com:9011/ws?uid=110";
       // var WebSocketUrl = "ws://192.168.1.24:9011/ws?uid=" + tokens.ID;
       // var WebSocketUrl = "ws://192.168.1.24:9011/ws?uid=1";
-      var WebSocketUrl = `wss://websocket.stock-plouto.com/ws?uid=${tokens.ID}&username=${tokens.username}`;
+   
+      
       // var WebSocketUrl = "ws://47.252.3.248:9011/ws?uid="
 
       var limitConnect = 1000000; // 断线重连次数
       var timeConnect = 0;
-      var baseUrl = "https://api.stock-plouto.com";
       var baseUrlShow = "https://stock-plouto.com"
-
+      var baseUrl = "https://api.stock-plouto.com";
+       
+    var datas =  localStorage.getItem("userInfo")
+      var tokens = JSON.parse(datas);
+      console.log("tokenstokenstokenstokens",tokens)
+      var WebSocketUrl = `wss://websocket.stock-plouto.com/ws?uid=${tokens.ID}&username=${tokens.username}`;
       // var baseUrl = "http://192.168.1.24:8080";
       var openSocket = true;
 
       webSocketInit(WebSocketUrl);
       var ws;
-      if (!tokens?.token) {
-        return
+      // if (!tokens?.token) {
+      //   return
         // window.location.href = "login.html?customerService=us";
-      }
+      // }
 
       $("#loadMoreData").click(function () {
         // let lastid = listMessageData.sort((a, b) => {
@@ -448,6 +454,7 @@
         di.scrollTop = di.scrollHeight;
       }
       function getHostoryMesssageList(lastid) {
+        
         $.ajax({
           type: "post",
           url: baseUrl + "/user/wechat?lastid=" + lastid,
@@ -553,7 +560,7 @@
       function webSocketInit(service) {
         ws = new WebSocket(service);
         ws.onopen = function () {
-          console.log("已连接TCP服务器");
+          console.log("----------------------》已连接TCP服务器");
         };
         ws.onmessage = function (msg) {
           openSocket = true;

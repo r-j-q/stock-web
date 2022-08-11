@@ -17,16 +17,16 @@
 <link rel="stylesheet" href="login/alert/css/alert.ani.min.css">
 <link rel="stylesheet" href="login/assets/css/gun.css">
 <script>
-	!function(f,b,e,v,n,t,s)
-	{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-	n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-	if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-	n.queue=[];t=b.createElement(e);t.async=!0;
-	t.src=v;s=b.getElementsByTagName(e)[0];
-	s.parentNode.insertBefore(t,s)}(window, document,'script',
-	'https://connect.facebook.net/en_US/fbevents.js');
-	fbq('init', '964717900866399');
-	fbq('track', 'PageView');
+	// !function(f,b,e,v,n,t,s)
+	// {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	// n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	// if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	// n.queue=[];t=b.createElement(e);t.async=!0;
+	// t.src=v;s=b.getElementsByTagName(e)[0];
+	// s.parentNode.insertBefore(t,s)}(window, document,'script',
+	// 'https://connect.facebook.net/en_US/fbevents.js');
+	// fbq('init', '964717900866399');
+	// fbq('track', 'PageView');
 	</script>
 	<noscript><img height="1" width="1" style="display:none"
 	src="https://www.facebook.com/tr?id=964717900866399&ev=PageView&noscript=1"
@@ -116,10 +116,10 @@
 			<div class="button"></div>
 			<ul class="navbar-nav">
 				<li><a href="#">Home</a></li>
-			 
-				<li><a href="#overview-area">Overview</a></li>
-				<li><a href="#pricing-area">Pricing</a></li>
-				<li><a href="#home1-services-area">Features</a></li>
+			    <li><a href="#overview-area">Overview</a></li>  
+			    <!-- <li><a href="newMember.html?id=3">Start Vip</a></li> -->
+				<li id="Pricing"><a href="#pricing-area">Pricing</a></li>
+				<li id="Features"><a href="#home1-services-area">Features</a></li>
 				<li><a href="#faq-area">FAQ</a></li>
 				<li class="loginIn"    class="top-btn"><span id="userName" class="spanstyle" >Login In</span></li>
 				<!-- <li    class="top-btn"><a href="changePassword.html">Reset Password</a></li> -->
@@ -666,13 +666,11 @@
 	</footer>
 	<!-- End Footer -->
   
-<div class="contans-style">
+<!-- <div class="contans-style">
 	<div class="outIn"><img src="assets/img/suoxiao.png" alt=""></div>
 	<iframe src="https://stock-plouto.com/customerService.html" width="500px" height="600px" marginheight="20px" marginwidth="20px"></iframe>
 </div>
-<div class="outIn-style anima" id="LoginInContactUs">
-   
-</div>
+<div class="outIn-style anima" id="LoginInContactUs"></div> -->
 </div>
 
 
@@ -700,14 +698,21 @@ type="text/javascript"
 			'overflow': 'visible'
 		});
 	var userInfos= JSON.parse(localStorage.getItem("userInfo"));
+	console.log("------->",userInfos)
 	if(userInfos?.token){
         $("#userName").text( `Welcome ${userInfos.username}` )
 	    $("#loginIn").hide()
 		$("#loginIns").hide() 
+		$("#Pricing").show()
+		$("#Features").show()  
+		    
        }else{
 		$("#userName").text("Login In")
 	    $("#loginIn").show()
 		$("#loginIns").show()
+		 
+		$("#Pricing").hide() 
+		$("#Features").hide()
 
 	   } 
 	});
@@ -770,7 +775,7 @@ type="text/javascript"
 	<a href="https://www.stockplouto.com/"  title=""></a>
 </div>
 <script>
-	!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jj9lqYbuaJWdfWUh",ck:"Jj9lqYbuaJWdfWUh"});
+	// !function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jj9lqYbuaJWdfWUh",ck:"Jj9lqYbuaJWdfWUh"});
  </script>
 
 

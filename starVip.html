@@ -76,12 +76,14 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        
       }
       .displaytopK {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        background-color:rgba(26, 221, 151, 0.75);
       }
       .positionsg {
         position: absolute;
@@ -99,16 +101,17 @@
         color: #fff;
       }
       .displaytop-list {
-        width: 600px;
-        height: 80px;
-        margin-top: 20px;
-        border: 1px solid #fff;
-        padding: 0 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        color: #fff;
-        font-size: 20px;
-        font-weight: bold;
+        width: 220px;
+    margin: 0 auto;
+    height: 49px;
+    margin-top: 20px;
+    border: 1px solid #fff;
+    padding: 0 20px;
+    border-radius: 27px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
       }
 
       .displaytopK:hover {
@@ -119,6 +122,15 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
+      }
+      .container_pay{
+        /* background-color: rgba(0, 0, 0, 0.75); */
+        width: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    bottom: 0;
       }
       .navbar-nav4 {
         display: flex;
@@ -137,6 +149,9 @@
         font-size: 20px;
         font-weight: bold;
       }
+      .navbarF {
+        color: #fff;
+      }
       .logo1 {
         font-size: 26px;
         font-weight: bold;
@@ -153,7 +168,13 @@
         color: #fff;
         font-size: 14px;
       }
+      .disp{
+        display: flex;flex-direction: row;align-items: center;justify-content: center;
+      }
       @media screen and (max-width: 720px) {
+        .disp{
+          display: flex;flex-direction: column;align-items: center;justify-content: center; 
+        }
         .displaytop-list {
           width: 300px;
           height: 50px;
@@ -168,10 +189,31 @@
           display: none;
         }
       }
+      .overview-title{
+        text-align: left;
+      }
+      .overview-top{
+        padding: 40px 0;
+        margin: 0 auto;
+      }
+       .backgroundColor{
+        background: #8a62f0;
+        background: -webkit-linear-gradient(146deg, #8a62f0, #7142df);
+        background: -moz-linear-gradient(146deg, #8a62f0, #7142df);
+        background: -o-linear-gradient(146deg, #8a62f0, #7142df);
+        background: linear-gradient(146deg, #8a62f0, #7142df);
+      }
+      
+      .bgf{
+        /* position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 100px; */
+      }
     </style>
   </head>
 
-  <body class="login-page sidebar-collapse">
+  <body class="login-page sidebar-collapse backgroundColor topnav-top">
     <header class="topnav-top">
       <!-- <img class="register-style-view" src="login/assets/img/register.jpg" alt="" srcset=""> -->
       <nav id="cssmenu" class="container-view">
@@ -191,24 +233,94 @@
         </ul>
       </nav>
     </header>
-
+    
     <!-- End Navbar -->
-    <div class="page-header" filter-color="orange">
+    <div class="page-headers" filter-color="orange">
       <div
         class="page-header-image"
-        style="background-image: url(assets/bjing.jpeg); position: fixed"
+         
       ></div>
-      <div class="container">
-        <div class="col-md-4 content-center">
-          <div class="">
-            <!-- <div class="newMember">newMember</div> -->
-            <!-- 内容 -->
-            <div class="displaytop" id="payList"></div>
-            <!-- 内容 -->
+      <!-- style="background-image: url(assets/bjing.jpeg); position: fixed" -->
+
+      <section id="overview-area">
+        <div class="overview-top">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="overview-img " data-aos="fade-up">
+                  <img src="assets/img/startv2.jpg" alt="">
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <div class="overview-text">
+                  <div class="overview-title navbarF">
+                    <h3>Mr. X is the Senior Wall Street Expert with 10 -year experience in the industry.</h3>
+                    <h5>He serves as head of Trading Department in UBS and also head of Investment Department in Bridgewater Associates.   </h5>
+                    <h5>Mr.X manages assets reaches $300 million.
+                       </h5>
+                    <h5>With chatting with Mr.X, you are able to have real-time 1v1 service. He is also capable of sharing his investment value system and years of rich experience in his field.   </h5>
+                  </div>
+                 
+                  
+                  
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+         
+      </section>
+       
+    </div>
+    <div class="container" >
+    <div class="col-lg-24 content-center">
+      <div class="overview-text">
+        <div class="overview-title navbarF">
+          <h2>Services including</h2>
+          <h3>一、1V1 Position Account Diagnosis. Including </h3>
+          <h5>1) Funding volumes</h5>
+          <h5>2) Position Varieties</h5>
+          <h5>3) Position Percentage</h5>
+          <h5>4) Cost price</h5>
+          <h5>5) Potential of the stock position to return to capital</h5>
+          <h5>6) Suggestions for liquidating varieties</h5>
+          <h3>二、1v1 investment strategy designation. Including </h3>
+          <h5>1) Long-term product recommendations</h5>
+          <h5>2) Trading Entry Timing</h5>
+          <h5>3) Entry position design</h5>
+          <h5>4) Timing alert for position addition and reduction</h5>
+          <h5>5) Profit taking and loss stopping reminder</h5> 
+          <h3>三、1v1 pitching course designation. Including</h3>
+          <h5>Systematic Courses：Professional and full-market class system courses</h5>
+          <h5>Customized Courses：Customized courses to meet the needs of our clients</h5>
+       
+        </div>
+        
+        
       </div>
     </div>
+    </div>
+    <div class="container_pay bgf"> 
+    <div class="container disp" >
+
+      <div class=" content-center">
+        <div class="">
+          <!-- <div class="newMember">newMember</div> -->
+          <!-- 内容 -->
+          <div class="displaytop" id="payList"></div>
+          <!-- 内容 -->
+        </div>
+      </div>
+      <div class="content-center" 
+      style="font-size: 18px;
+      color: #fff;
+      padding-top: 20px;
+      padding-left: 20px;">
+
+        <span id="Remaining"> Remaining quota of this period</span> <span id="remainingScore"></span> 
+    </div>
+    </div>
+  </div>
     <!-- 选择支付方式 -->
     <div id="item1" class="item item--mod">
       <b class="item-close js-popup-close">x</b>
@@ -249,7 +361,6 @@
     </div>
 
     <footer>
-      <!-- <div    style="position:fixed;bottom:0;left:0;right:0;z-index: 999;"> -->
       <div style="background: rgba(44, 44, 44, 0.6)">
         <div class="container">
           <div style="text-align: center; padding: 30px 0 60px">
@@ -308,7 +419,7 @@
     type="text/javascript"
   ></script>
   <script
-    src="login/assets/js/login.js?v=1.1.3"
+    src="login/assets/js/login4.js?v=1.1.3"
     type="text/javascript"
   ></script>
   <script
@@ -323,15 +434,16 @@
       // $("body").delay(350).css({
       //   overflow: "visible",
       // });
+      // getVip(3)
       var userInfos = JSON.parse(localStorage.getItem("userInfo"));
       if (userInfos?.token) {
         $("#userName").text(`Welcome ${userInfos.username}`);
-        $("#loginIn").hide();
-        $("#loginIns").hide();
+        // $("#loginIn").hide();
+        // $("#loginIns").hide();
       } else {
         $("#userName").text("Login In");
-        $("#loginIn").show();
-        $("#loginIns").show();
+        // $("#loginIn").show();
+        // $("#loginIns").show();
       }
     });
   </script>

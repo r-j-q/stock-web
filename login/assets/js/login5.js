@@ -308,7 +308,7 @@
         // console.log("创建订单", res);
         if (res.code == 0) {
           console.log("----max_member--->",max_member)
-       $("#remainingScore").text(max_member - parseInt(res.data.total))    
+       $("#remainingScore").text( max_member - parseInt(res.data.total))    
          console.log("==多少份=========>",res)
         }
       },
@@ -489,7 +489,8 @@
     goodList(2);
   } else if (ids == 1) {
     goodList(1);
-  } 
+  }
+  goodList(4);
   // else if (ids == 3) { 
   //   goodList(3);
   // }else if (ids == 4) {
@@ -499,7 +500,7 @@
   //   console.log("---------->",id)
   //   goodList(id);
   // }
- 
+  
   // 　function urlHtml(params){
 
   //   　　//获取url地址

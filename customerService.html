@@ -402,16 +402,18 @@
       var listMessageDataForEach = [];
       var loadMoreDataList = [];
       
-    
+      var datas =  localStorage.getItem("userInfo")
+      var tokens = JSON.parse(datas);
+      // console.log("tokenstokenstokenstokens",tokens)
       var out = document.querySelector(".out"); //获取发送按钮
       var myInput = document.querySelector(".myInput");
       var pic = document.getElementById("pic"); //获取图片
       var onOff = false;
       var upImage = "";
-      var list = document.querySelector(".list"); //获取ul
-      //   var WebSocketUrl = "ws://api.stock-plouto.com:9011/ws?uid=110";
-      // var WebSocketUrl = "ws://192.168.1.24:9011/ws?uid=" + tokens.ID;
-      // var WebSocketUrl = "ws://192.168.1.24:9011/ws?uid=1";
+      var list = document.querySelector(".list"); //获取ul 
+      var WebSocketUrl = "ws://192.168.1.11:9011/ws?uid=" + tokens.ID;
+      // var WebSocketUrl = `wss://websocket.stock-plouto.com/ws?uid=${tokens.ID}&username=${tokens.username}`;
+     
    
       
       // var WebSocketUrl = "ws://47.252.3.248:9011/ws?uid="
@@ -419,12 +421,12 @@
       var limitConnect = 1000000; // 断线重连次数
       var timeConnect = 0;
       var baseUrlShow = "https://stock-plouto.com"
-      var baseUrl = "https://api.stock-plouto.com";
+      
+      // var baseUrl = "https://api.stock-plouto.com";
+      var baseUrl =   "http://192.168.1.11:8080" 
+       var scrollType = "noMore"
+ 
        
-    var datas =  localStorage.getItem("userInfo")
-      var tokens = JSON.parse(datas);
-      console.log("tokenstokenstokenstokens",tokens)
-      var WebSocketUrl = `wss://websocket.stock-plouto.com/ws?uid=${tokens.ID}&username=${tokens.username}`;
       // var baseUrl = "http://192.168.1.24:8080";
       var openSocket = true;
 
@@ -435,11 +437,8 @@
         // window.location.href = "login.html?customerService=us";
       // }
 
-      $("#loadMoreData").click(function () {
-        // let lastid = listMessageData.sort((a, b) => {
-        //   return a - b;
-        // })[listMessageData.length - 1].ID;
-
+      $("#loadMoreData").click(function () { 
+        scrollType="more"
         let lastid = Math.min.apply(
           Math,
           listMessageData.map((item) => {
@@ -452,6 +451,10 @@
       function scrollBottom() {
         var di = document.getElementById("contentList");
         di.scrollTop = di.scrollHeight;
+      }
+      function scrollTopFunction() {
+        var di = document.getElementById("contentList");
+        di.scrollTop = di.scrollTop;
       }
       function getHostoryMesssageList(lastid) {
         
@@ -466,6 +469,8 @@
           success: function (msg) {
             if (msg.data.list.length == 0) {
               $("#loadMoreData").hide();
+            }else{
+              list.innerHTML=""
             }
             if (msg.data.list.length > 0) {
               listMessageData = msg.data.list.reverse();
@@ -509,7 +514,12 @@
                   }
                 }
               });
-              scrollBottom();
+            
+              if(scrollType != "more"){
+                scrollBottom();
+              }else{
+                scrollTopFunction()
+              }
             }
           },
         });
@@ -642,8 +652,7 @@
               "<li class='right'><img src='login/assets/img/ryan.jpg'/><p><img src='" +
               upImage +
               "'/></p></li>";
-            scrollBottom();
-            // source = res.picAddr;
+            scrollBottom(); 
           },
         });
       });

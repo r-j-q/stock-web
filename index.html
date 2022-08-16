@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="login/alert/css/alert.min.css"> 
 <link rel="stylesheet" href="login/alert/css/alert.ani.min.css">
 <link rel="stylesheet" href="login/assets/css/gun.css">
+<link rel="stylesheet" href="assets/popup/animate.css" />
+<link rel="stylesheet" href="assets/popup/popups.css" />
 <script>
 	// !function(f,b,e,v,n,t,s)
 	// {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -117,7 +119,9 @@
 			<ul class="navbar-nav">
 				<li><a href="#">Home</a></li>
 			    <li><a href="#overview-area">Overview</a></li>  
-			    <!-- <li><a href="newMember.html?id=3">Start Vip</a></li> -->
+			    <li id="StartVip"><a href="javascript:;">Start Vip</a></li>
+			    <li id="VipClub"><a href="javascript:;">Vip Club</a></li>
+				
 				<li id="Pricing"><a href="#pricing-area">Pricing</a></li>
 				<li id="Features"><a href="#home1-services-area">Features</a></li>
 				<li><a href="#faq-area">FAQ</a></li>
@@ -665,32 +669,51 @@
 		</div>
 	</footer>
 	<!-- End Footer -->
-  
-<!-- <div class="contans-style">
-	<div class="outIn"><img src="assets/img/suoxiao.png" alt=""></div>
-	<iframe src="https://stock-plouto.com/customerService.html" width="500px" height="600px" marginheight="20px" marginwidth="20px"></iframe>
-</div>
-<div class="outIn-style anima" id="LoginInContactUs"></div> -->
-</div>
+  <!-- 聊天 -->
+ <!-- <div class="contans-style"> -->
+	<!-- <div class="outIn"><img src="assets/img/suoxiao.png" alt=""></div> -->
+	<!-- <iframe src="http://192.168.1.210/localhostStock/customerService.html" width="500px" height="600px" marginheight="20px" marginwidth="20px"></iframe> -->
+	<!-- <iframe src="https://stock-plouto.com/customerService.html" width="500px" height="600px" marginheight="20px" marginwidth="20px"></iframe> -->
+<!-- </div> -->
+ 
+<!-- <div class="outIn-style anima" id="LoginInContactUs"></div>   -->
 
 
+<!-- 高价格弹窗 -->
+
+  <div id="itemStartVip" class="item item--mod">
+	<b class="item-close js-popup-close">x</b>
+	<div class="item-close-style">
+	  <div class="please-payment-method">
+		This page is only open to members
+	  </div>
+	  <div id="signUpNow" class="btn-1 how-works-item100">Register</div>
+
+	</div>
+</div>  
+ 
+<!-- 高价格弹窗 -->
+
+</div> 
 <script src="login/alert/js/alert.min.js"></script>
-
+ 
 <script src="assets/js/jquery-3.3.1.min.js"></script>
 <script src="assets/js/popper.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/plugins.js"></script>
 <script src="assets/js/menu.js"></script>
 <script src="assets/js/script.js"></script>
+<script src="assets/popup/jquery-1.11.0.min.js?v=2"></script>
+<script src="assets/popup/jquery.popup.js?v=2"></script>
 <script
     src="login/assets/js/gun.js?v=1.1.0"
     type="text/javascript"
   ></script>
    
-  <script
+  <!-- <script
 src="login/assets/js/jquery.1.3.js?v=1.1.0"
 type="text/javascript"
-></script> 
+></script>  -->
 <script> 
 	$(window).on('load', function() {
 		$('#preloader').delay(350).fadeOut('slow');
@@ -717,8 +740,9 @@ type="text/javascript"
 	   } 
 	});
 </script>
-<script>
+<script> 
       var baseUrl = "https://api.stock-plouto.com";
+	//   var baseUrl =   "http://192.168.1.11:8080"
 
 	  (function () {
         $.ajax({
@@ -733,25 +757,21 @@ type="text/javascript"
 			var emails =	email( data.user_email)
          var op22 = `<li><a href="###"> ${emails  } has just subscribed to the ${data.goods_title}</a></li>`;
               $("#getorderlist").append(op22);
-            });
-            // window.location.href = "login.html";
+            }); 
           },
         });
       })();
 	  function email(email) {
-    return email.replace(/(.{0,3}).*@(.*)/, "$1***@$2")
-    // return email.replace(/^(.{0,3})?.*@(.*)/, "$1***@$2")
+    return email.replace(/(.{0,3}).*@(.*)/, "$1***@$2") 
 }  
     var userInfo =JSON.parse( localStorage.getItem("userInfo"));
 	$("#ResetPassword").click(function(){
         window.location.href = "changePassword.html";
 
-      })
-	//   console.log("==========>",userInfo)
+      }) 
 	   
 	   $(".loginIn").click(function () { 
-      if (!userInfo?.token) {
-        // localStorage.removeItem("userInfo");
+      if (!userInfo?.token) { 
 		 
         window.location.href = "login.html";
       }
@@ -774,12 +794,8 @@ type="text/javascript"
 	Collect from <a href="http://www.stockplouto.com/"  title=""></a>
 	<a href="https://www.stockplouto.com/"  title=""></a>
 </div>
-<script>
-	// !function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Jj9lqYbuaJWdfWUh",ck:"Jj9lqYbuaJWdfWUh"});
- </script>
-
-
-<!--Start of Tawk.to Script-->
+ 
+ 
 <script type="text/javascript">
 	  var userInfos = JSON.parse(localStorage.getItem("userInfo"));
 	  $(".contans-style").fadeOut()
@@ -800,8 +816,62 @@ type="text/javascript"
 	     $(".contans-style").fadeIn();
 		 $(".outIn-style").fadeOut()
        })
-	  
-	 
+	//   弹窗模块
+	$(function () {
+
+		 
+
+
+		$('#VipClub').on('click',   () =>{
+
+     if (userInfos?.token) {
+	window.location.href = "vipClub.html";
+
+     }else{ 
+      $('#itemStartVip').popup({
+		  time: 1000,
+		  classAnimateShow: 'slideInUp',
+		  classAnimateHide: 'fadeOut',
+		  onPopupClose: function e() {
+			// console.log('0')
+		  },
+		  onPopupInit: function e() {
+			// console.log('1')
+		  }
+		});
+	}
+	  });
+
+	   $('#StartVip').on('click',   () =>{
+
+		if (userInfos?.token) {
+			window.location.href = "starVip.html";
+
+		}else{ 
+           $('#itemStartVip').popup({
+		          time: 1000,
+		          classAnimateShow: 'slideInUp',
+		          classAnimateHide: 'fadeOut',
+		          onPopupClose: function e() {
+		            // console.log('0')
+		          },
+		          onPopupInit: function e() {
+		            // console.log('1')
+		          }
+		        });
+			}
+		      });
+
+	$("#signUpNow").click(()=>{
+		 
+          window.location.href = "register.html";
+        
+	})
+	})
     
- </script> </body>
+ </script> 
+ 
+
+
+</body>
 </html>

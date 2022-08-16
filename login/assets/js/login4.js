@@ -489,7 +489,8 @@
     goodList(2);
   } else if (ids == 1) {
     goodList(1);
-  } 
+  }
+  goodList(3);
   // else if (ids == 3) { 
   //   goodList(3);
   // }else if (ids == 4) {

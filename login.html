@@ -393,16 +393,21 @@
 
     // var sss = urlhtml(2); 
     (function ($) {
-      // var baseUrl = "https://api.stock-plouto.com";
-      var baseUrl =   "http://192.168.1.11:8080"
+      var baseUrl = "https://api.stock-plouto.com";
+      // var baseUrl =   "http://192.168.1.11:8080"
 
       var userInfo = localStorage.getItem("userInfo");
       $("#ResetPassword").click(function () {
         window.location.href = "changePassword.html";
       });
       $("#loginBtn").click(function () {
-        if ($("#username").val() == "" || $("#password").val() == "") {
-          fnShowAnimate("zoom-in", "Incorrect information");
+        
+        if ($("#username").val() == "" ) {
+          fnShowAnimate("zoom-in", "Username can not be empty");
+          return;
+        }
+        if ($("#password").val()  =="") {
+          fnShowAnimate("zoom-in", "Please enter the verification password");
           return;
         }
         var user = {

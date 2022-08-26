@@ -265,8 +265,8 @@
 
   <script>
     (function ($) {
-      // var baseUrl = "https://api.stock-plouto.com";
-      var baseUrl =   "http://192.168.1.11:8080"
+      var baseUrl = "https://api.stock-plouto.com";
+      // var baseUrl =   "http://192.168.1.11:8080"
 
       var userInfo = localStorage.getItem("userInfo");
       var _tempPosition = "center";
@@ -316,23 +316,36 @@
           phone: $("#phone").val(),
           code: $("#code").val(),
           areacode: areaCode,
-        };
-        if (
-          $("#username").val() == "" ||
-          $("#phone").val() == "" ||
-          $("#email").val() == "" ||
-          $("#password").val() == "" ||
-          $("#rePassword").val() == "" ||
-          $("#code").val() == ""
-        ) {
-          fnShowAnimate("zoom-in", "Incorrect information");
+        };   
+        if ($("#username").val() == "" ) {
+          fnShowAnimate("zoom-in", "Username can not be empty");
           return;
         }
-        if ($("#password").val() != $("#rePassword").val()) {
-          fnShowAnimate("zoom-in", "Incorrect information");
+        if ($("#phone").val() == "" ) {
+          fnShowAnimate("zoom-in", "Enter phone number");
           return;
         }
-
+        if ($("#email").val() == "" ) {
+          fnShowAnimate("zoom-in", "Enter email");
+          return;
+        }
+       
+        if ($("#code").val() == "" ) {
+          fnShowAnimate("zoom-in", "please enter verification code");
+          return;
+        }  
+        if ($("#password").val()  == "") {
+          fnShowAnimate("zoom-in", "Please enter the verification password");
+          return;
+        }
+        if ($("#rePassword").val() == "" ) {
+          fnShowAnimate("zoom-in", "Confirm password is incorrect");
+          return;
+        }
+        if ($("#password").val() != $("#rePassword").val() ) {
+          fnShowAnimate("zoom-in", "Please check that the password is always");
+          return;
+        }
         var emailRegExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
         var ok = emailRegExp.test($("#email").val());
 

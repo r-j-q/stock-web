@@ -11,6 +11,23 @@
 
     <title>Stock Plouto</title>
     <style>
+      .bigImg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /*图片向左移动自身宽度的50%, 向上移动自身高度的50%。*/
+    transform: translate(-50%,-50%);
+}
+/*遮罩层*/
+.opacityBottom {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0,0.8);
+    z-index: 9999;
+    top: 0;
+    left: 0;
+}
       #loadMoreData {
         text-align: center;
         color: #333;
@@ -52,306 +69,7 @@
 
   <body>
     <div class="container">
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-container">
-        <div class="circle"></div>
-      </div>
+      
 
       <div class="box">
         <div class="">
@@ -395,6 +113,8 @@
       src="login/assets/js/core/jquery.3.2.1.min.js"
       type="text/javascript"
     ></script>
+
+ 
     <script type="text/javascript">
       
 
@@ -411,8 +131,8 @@
       var onOff = false;
       var upImage = "";
       var list = document.querySelector(".list"); //获取ul 
-      var WebSocketUrl = "ws://192.168.1.11:9011/ws?uid=" + tokens.ID;
-      // var WebSocketUrl = `wss://websocket.stock-plouto.com/ws?uid=${tokens.ID}&username=${tokens.username}`;
+      // var WebSocketUrl = "ws://192.168.1.11:9011/ws?uid=" + tokens.ID;
+      var WebSocketUrl = `wss://websocket.stock-plouto.com/ws?uid=${tokens.ID}&username=${tokens.username}`;
      
    
       
@@ -422,8 +142,8 @@
       var timeConnect = 0;
       var baseUrlShow = "https://stock-plouto.com"
       
-      // var baseUrl = "https://api.stock-plouto.com";
-      var baseUrl =   "http://192.168.1.11:8080" 
+      var baseUrl = "https://api.stock-plouto.com";
+      // var baseUrl =   "http://192.168.1.11:8080" 
        var scrollType = "noMore"
  
        
@@ -491,9 +211,7 @@
                 if (lists.is_admin == 0) {
                   if (lists.content.TextType == 1) {
                     list.innerHTML +=
-                      "<li class='right'><img src='https://stock-plouto.com/login/assets/img/ryan.jpg'/><p><img src='" +
-                      lists.content.content +
-                      "'/></p></li>";
+                      "<li class='right'><img src='https://stock-plouto.com/login/assets/img/ryan.jpg'/><p><img onclick='zoom("+lists.content.content+")' src='" +lists.content.content +"'/></p></li>";
                   } else {
                     list.innerHTML +=
                       "<li class='right'><img src='https://stock-plouto.com/login/assets/img/ryan.jpg'/><p>" +
@@ -503,7 +221,7 @@
                 } else {
                   if (lists.content.TextType == 1) {
                     list.innerHTML +=
-                      "<li class='left'><img src='https://stock-plouto.com/login/assets/img/ploutos.png'/><p><img src='" +
+                      "<li class='left'><img src='https://stock-plouto.com/login/assets/img/ploutos.png'/><p><img onclick='zoom("+lists.content.content+")'  src='" +
                       lists.content.content +
                       "'/></p></li>";
                   } else {
@@ -567,8 +285,14 @@
         }
       };
 
+      // 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+      window.onbeforeunload = function() {
+          ws.close();
+      }
+
       function webSocketInit(service) {
-        ws = new WebSocket(service);
+        ws = new WebSocket(service,[tokens.token]);
+        console.log("----------------------重新链接token",tokens.token);
         ws.onopen = function () {
           console.log("----------------------》已连接TCP服务器");
         };
@@ -581,7 +305,7 @@
             if(JSON.parse(JSON.parse(msg.data).content).TextType==1){
                
               list.innerHTML +=
-              "<li class='left'><img src='https://stock-plouto.com/login/assets/img/ploutos.png'/><p><img src='" +
+              "<li class='left'><img src='https://stock-plouto.com/login/assets/img/ploutos.png'/><p><img onclick='zoom("+JSON.parse(JSON.parse(msg.data).content).content +")'  src='" +
                       JSON.parse(JSON.parse(msg.data).content).content +
                       "'/> </p></li>";
             }else{
@@ -649,13 +373,32 @@
 
             ws.send(JSON.stringify({ content: upImage, TextType: 1 }));
             list.innerHTML +=
-              "<li class='right'><img src='login/assets/img/ryan.jpg'/><p><img src='" +
+              "<li class='right'><img src='login/assets/img/ryan.jpg'/><p><img onclick='zoom("+upImage+")'   src='" +
               upImage +
               "'/></p></li>";
             scrollBottom(); 
           },
         });
       });
-    </script>
+     
+          function zoom(imgsrc){
+            console.log("-图片路径--------->",imgsrc)
+             //获取图片路径 
+                var opacityBottom = '<div class="opacityBottom" style = "display:none"><img class="bigImg" src="' + imgsrc + '"></div>';
+                $(document.body).append(opacityBottom);
+                toBigImg();//变大函数
+          }
+         
+            function toBigImg() {
+                $(".opacityBottom").addClass("opacityBottom");//添加遮罩层
+                $(".opacityBottom").show();
+                $("html,body").addClass("none-scroll");//下层不可滑动
+                $(".bigImg").addClass("bigImg");//添加图片样式
+                $(".opacityBottom").click(function () {//点击关闭
+                    $("html,body").removeClass("none-scroll");
+                    $(".opacityBottom").remove();
+                });
+            }
+        </script>
   </body>
 </html>
